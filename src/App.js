@@ -113,6 +113,8 @@ function App() {
   const flatGlobe = new WorldWind.Globe2D();
   flatGlobe.projection = new WorldWind.ProjectionMercator();
   const [searchWord, setSearchWord] = useState(null);
+  const [lat, setLat] = useState(null);
+  const [lon, setLon] = useState(null);
   const handleSearchKeyPress = e => {
     if (e.key === "Enter") {
       setSearchWord(e.target.value);
@@ -125,6 +127,8 @@ function App() {
     canvas.height = window.innerHeight - 64;
     const wwd = new WorldWind.WorldWindow("canvas");
     wwd.globe = flatGlobe;
+    wwd.navigator.latitude = lat;
+    wwd.navigator.longitude = lon;
     wwd.navigator.range = 2e6;
     const layers = [
       { layer: new WorldWind.BMNGLayer(), enabled: true },
@@ -159,12 +163,16 @@ function App() {
         const lat = parseFloat(tokens[0]);
         const lon = parseFloat(tokens[1]);
         goToAnimator.goTo(new WorldWind.Location(lat, lon));
+        setLat(lat)
+        setLon(lon)
       } else {
         geocoder.lookup(searchWord, (geocoder, result) => {
           if (result.length === 0) return;
           const lat = parseFloat(result[0].lat);
           const lon = parseFloat(result[0].lon);
           goToAnimator.goTo(new WorldWind.Location(lat, lon));
+          setLat(lat)
+          setLon(lon)
         });
       }
     }
@@ -201,6 +209,7 @@ function App() {
                 }}
                 inputProps={{ "aria-label": "search" }}
                 onKeyPress={handleSearchKeyPress}
+                value={searchWord}
               />
             </div>
           </Toolbar>
