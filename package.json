@@ -6,7 +6,7 @@
   "bugs": {
     "url": "https://github.com/watilde/nasa-space-app-challenge-2019/issues"
   },
-  "homepage": "https://github.com/watilde/nasa-space-app-challenge-2019#readme",
+  "homepage": "https://watilde.github.io/firefighting-planner",
   "dependencies": {
     "@material-ui/core": "^4.5.1",
     "@material-ui/icons": "^4.5.1",
@@ -19,7 +19,9 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -36,5 +38,8 @@
       "last 1 safari version"
     ]
   },
-  "license": "MIT"
+  "license": "MIT",
+  "devDependencies": {
+    "gh-pages": "^2.1.1"
+  }
 }
