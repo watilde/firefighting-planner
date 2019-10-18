@@ -1,10 +1,10 @@
 {
-  "name": "nasa-space-app-challenge-2019",
-  "description": "Playground environment for hackathon.",
+  "name": "firefighting-planner",
+  "description": "Space App Challenge 2019 from Yokohma",
   "version": "0.1.0",
   "private": true,
   "bugs": {
-    "url": "https://github.com/watilde/nasa-space-app-challenge-2019/issues"
+    "url": "https://github.com/watilde/firefighting-planner/issues"
   },
   "homepage": "https://watilde.github.io/firefighting-planner",
   "dependencies": {

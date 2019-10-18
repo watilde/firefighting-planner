@@ -1,5 +1,5 @@
-# nasa-space-app-challenge-2019
-Playground environment for hackathon.
+# Firefighting planner
+Space App Challenge 2019 from Yokohma.
 
 ## Getting started
 
@@ -21,13 +21,13 @@ Playground environment for hackathon.
 1. Clone the repository
 
 ```console
-$ git clone git@github.com:watilde/nasa-space-app-challenge-2019.git
+$ git clone git@github.com:watilde/firefighting-planner.git
 ```
 
 2. Install dependencies
 
 ```console
-$ cd nasa-space-app-challenge-2019
+$ cd firefighting-planner
 $ npm install
 ```
 
