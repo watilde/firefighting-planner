@@ -1,12 +1,10 @@
 import React, { useEffect } from 'react';
-import { TextField, Button, AppBar, Toolbar, Typography, IconButton, } from '@material-ui/core';
+import { TextField, AppBar, Toolbar, Typography } from '@material-ui/core';
 import WorldWind from '@nasaworldwind/worldwind';
-import MenuIcon from '@material-ui/icons/Menu';
 
 import { fade, makeStyles } from '@material-ui/core/styles';
 
 const BING_KEY = process.env.REACT_APP_BING_MAPS_KEY
-const WMS = "https://neo.sci.gsfc.nasa.gov/wms/wms?SERVICE=WMS&REQUEST=GetCapabilities&VERSION=1.3.0";
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -45,12 +43,21 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-function parseXML(response) {
-  return response.text().then((stringContainingXMLSource) => {
-    const parser = new DOMParser();
-    return parser.parseFromString(stringContainingXMLSource, "text/xml");
-  });
-}
+const shapeConfigurationCallback = function (attributes, record) {
+  const placemarkAttributes = new WorldWind.PlacemarkAttributes(null);
+  placemarkAttributes.imageScale = 0.05;
+  placemarkAttributes.imageColor = WorldWind.Color.RED;
+  placemarkAttributes.labelAttributes.offset = new WorldWind.Offset(
+    WorldWind.OFFSET_FRACTION, 0.5,
+    WorldWind.OFFSET_FRACTION, 1.0
+  );
+  placemarkAttributes.imageSource = WorldWind.configuration.baseUrl + "images/white-dot.png";
+  const configuration = {};
+  configuration.name = attributes.recordNumber;
+  configuration.attributes = new WorldWind.PlacemarkAttributes(placemarkAttributes);
+  configuration.attributes.imageScale = 0.04 + (attributes.values.FRP * 0.001);
+  return configuration;
+};
 
 function App () {
   const classes = useStyles();
@@ -82,31 +89,12 @@ function App () {
         layers[i].layer.enabled = layers[i].enabled;
         wwd.addLayer(layers[i].layer);
     }
-    /*
-    const modelLayer = new WorldWind.RenderableLayer("Duck");
-    wwd.addLayer(modelLayer);
-    const position = new WorldWind.Position(45, -100, 1000e3)
-    const colladaLoader = new WorldWind.ColladaLoader(position)
-    colladaLoader.init({dirPath: '/collada_models/duck/'})
-    colladaLoader.load('duck.dae', function (scene) {
-      scene.scale = 5000
-      modelLayer.addRenderable(scene)
-    });
-    */
 
-    /*
-    fetch(WMS)
-      .then(parseXML)
-      .then((xmlDom) => {
-        const layerName = "MOD_LSTD_CLIM_M";
-        const wms = new WorldWind.WmsCapabilities(xmlDom);
-        const wmsLayerCapabilities = wms.getNamedLayer(layerName);
-        const wmsConfig = WorldWind.WmsLayer.formLayerConfiguration(wmsLayerCapabilities);
-        wmsConfig.title = "Average Surface Temp";
-        const wmsLayer = new WorldWind.WmsLayer(wmsConfig);
-        wwd.addLayer(wmsLayer);
-      })
-    */
+    const fireLayer = new WorldWind.RenderableLayer("Fires");
+    const fireShapefile = new WorldWind.Shapefile("/firms/VNP14IMGTDL_NRT_USA_contiguous_and_Hawaii_24h/VNP14IMGTDL_NRT_USA_contiguous_and_Hawaii_24h.shp");
+    fireShapefile.load(null, shapeConfigurationCallback, fireLayer);
+    wwd.addLayer(fireLayer);
+
   });
 
 
