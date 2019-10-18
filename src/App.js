@@ -41,9 +41,6 @@ const useStyles = makeStyles(theme => ({
       width: "auto"
     }
   },
-  inputRoot: {
-    color: "inherit"
-  },
   textField: {
     padding: "5px",
     backgroundColor: "#fff"
@@ -112,7 +109,7 @@ function App() {
   const roundGlobe = new WorldWind.Globe(new WorldWind.EarthElevationModel());
   const flatGlobe = new WorldWind.Globe2D();
   flatGlobe.projection = new WorldWind.ProjectionMercator();
-  const [searchWord, setSearchWord] = useState(null);
+  const [searchWord, setSearchWord] = useState("");
   const [lat, setLat] = useState(null);
   const [lon, setLon] = useState(null);
   const handleSearchKeyPress = e => {
@@ -163,20 +160,20 @@ function App() {
         const lat = parseFloat(tokens[0]);
         const lon = parseFloat(tokens[1]);
         goToAnimator.goTo(new WorldWind.Location(lat, lon));
-        setLat(lat)
-        setLon(lon)
+        setLat(lat);
+        setLon(lon);
       } else {
         geocoder.lookup(searchWord, (geocoder, result) => {
           if (result.length === 0) return;
           const lat = parseFloat(result[0].lat);
           const lon = parseFloat(result[0].lon);
           goToAnimator.goTo(new WorldWind.Location(lat, lon));
-          setLat(lat)
-          setLon(lon)
+          setLat(lat);
+          setLon(lon);
         });
       }
     }
-  });
+  }, [flatGlobe, lat, lon, searchWord]);
 
   return (
     <>
