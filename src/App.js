@@ -122,9 +122,10 @@ function App() {
   useEffect(() => {
     const canvas = document.getElementById("canvas");
     canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
+    canvas.height = window.innerHeight - 64;
     const wwd = new WorldWind.WorldWindow("canvas");
     wwd.globe = flatGlobe;
+    wwd.navigator.range = 2e6;
     const layers = [
       { layer: new WorldWind.BMNGLayer(), enabled: true },
       { layer: new WorldWind.BMNGLandsatLayer(), enabled: false },
