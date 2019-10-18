@@ -1,5 +1,6 @@
-import React, { useEffect } from 'react';
-import { TextField, AppBar, Toolbar, Typography } from '@material-ui/core';
+import React, { useState, useEffect } from 'react';
+import { InputBase, TextField, AppBar, Toolbar, Typography } from '@material-ui/core';
+import SearchIcon from '@material-ui/icons/Search';
 import WorldWind from '@nasaworldwind/worldwind';
 
 import { fade, makeStyles } from '@material-ui/core/styles';
@@ -20,7 +21,7 @@ const useStyles = makeStyles(theme => ({
       display: 'block',
     },
   },
-  search: {
+  date: {
     position: 'relative',
     borderRadius: theme.shape.borderRadius,
     backgroundColor: fade(theme.palette.common.white, 0.15),
@@ -40,6 +41,41 @@ const useStyles = makeStyles(theme => ({
   textField: {
     padding: '5px',
     backgroundColor: '#fff'
+  },
+  search: {
+    position: 'relative',
+    borderRadius: theme.shape.borderRadius,
+    backgroundColor: fade(theme.palette.common.white, 0.15),
+    '&:hover': {
+      backgroundColor: fade(theme.palette.common.white, 0.25),
+    },
+    marginRight: theme.spacing(2),
+    marginLeft: 0,
+    width: '100%',
+    [theme.breakpoints.up('sm')]: {
+      marginLeft: theme.spacing(3),
+      width: 'auto',
+    },
+  },
+  searchIcon: {
+    width: theme.spacing(7),
+    height: '100%',
+    position: 'absolute',
+    pointerEvents: 'none',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  inputRoot: {
+    color: 'inherit',
+  },
+  inputInput: {
+    padding: theme.spacing(1, 1, 1, 7),
+    transition: theme.transitions.create('width'),
+    width: '100%',
+    [theme.breakpoints.up('md')]: {
+      width: 200,
+    },
   },
 }));
 
@@ -61,15 +97,21 @@ const shapeConfigurationCallback = function (attributes, record) {
 
 function App () {
   const classes = useStyles();
+  WorldWind.BingMapsKey = BING_KEY;
   const roundGlobe = new WorldWind.Globe(new WorldWind.EarthElevationModel());
   const flatGlobe = new WorldWind.Globe2D();
   flatGlobe.projection = new WorldWind.ProjectionMercator();
+  const [searchWord, setSearchWord] = useState(null);
+  const handleSearchKeyPress = (e) => {
+    if (e.key === 'Enter') {
+      setSearchWord(e.target.value)
+    }
+  }
 
   useEffect(() => {
     const canvas = document.getElementById('canvas')
     canvas.width = window.innerWidth
     canvas.height = window.innerHeight
-    WorldWind.BingMapsKey = BING_KEY
     const wwd = new WorldWind.WorldWindow("canvas");
     wwd.globe = flatGlobe;
     const layers = [
@@ -95,6 +137,23 @@ function App () {
     fireShapefile.load(null, shapeConfigurationCallback, fireLayer);
     wwd.addLayer(fireLayer);
 
+    const geocoder = new WorldWind.NominatimGeocoder();
+    const goToAnimator = new WorldWind.GoToAnimator(wwd);
+    if (searchWord) {
+      if (searchWord.match(WorldWind.WWUtil.latLonRegex)) {
+        const tokens = searchWord.split(",");
+        const lat = parseFloat(tokens[0]);
+        const lon = parseFloat(tokens[1]);
+        goToAnimator.goTo(new WorldWind.Location(lat, lon));
+      } else {
+        geocoder.lookup(searchWord, (geocoder, result) => {
+          if (result.length === 0) return
+          const lat = parseFloat(result[0].lat);
+          const lon = parseFloat(result[0].lon);
+          goToAnimator.goTo(new WorldWind.Location(lat, lon));
+        });
+      }
+    }
   });
 
 
@@ -106,7 +165,7 @@ function App () {
             <Typography className={classes.title} variant="h6" noWrap>
               Firefighting planner
             </Typography>
-            <div className={classes.search}>
+            <div className={classes.date}>
               <TextField
                 id="datetime-local"
                 type="datetime-local"
@@ -115,6 +174,20 @@ function App () {
                 InputLabelProps={{
                   shrink: true,
                 }}
+              />
+            </div>
+            <div className={classes.search}>
+              <div className={classes.searchIcon}>
+                <SearchIcon />
+              </div>
+              <InputBase
+                placeholder="Search…"
+                classes={{
+                  root: classes.inputRoot,
+                  input: classes.inputInput,
+                }}
+                inputProps={{ 'aria-label': 'search' }}
+                onKeyPress={handleSearchKeyPress}
               />
             </div>
           </Toolbar>
