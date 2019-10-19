@@ -126,11 +126,14 @@ const shapeConfigurationCallback = (attributes, record) => {
 
 function App() {
   const classes = useStyles();
+  let handleWheel;
   WorldWind.BingMapsKey = BING_KEY;
   const roundGlobe = new WorldWind.Globe(new WorldWind.EarthElevationModel());
   const flatGlobe = new WorldWind.Globe2D();
   flatGlobe.projection = new WorldWind.ProjectionMercator();
   const [searchWord, setSearchWord] = useState("");
+  const [range, setRange] = useState(2e6);
+  const [isMove, setIsMove] = useState(false);
   const [lat, setLat] = useState(36.256535392993314);
   const [lon, setLon] = useState(-119.2002385680952);
   const [time, setTime] = useState("2018-08-01T10:10");
@@ -189,7 +192,7 @@ function App() {
     wwd.globe = flatGlobe;
     wwd.navigator.lookAtLocation.latitude = lat;
     wwd.navigator.lookAtLocation.longitude = lon;
-    wwd.navigator.range = 2e6;
+    wwd.navigator.range = range;
     const layers = [
       { layer: new WorldWind.BMNGLayer(), enabled: true },
       { layer: new WorldWind.BMNGLandsatLayer(), enabled: false },
@@ -286,9 +289,15 @@ function App() {
         );
       }
     };
+    wwd.addEventListener("wheel", e => {
+      clearTimeout(handleWheel);
+      handleWheel = setTimeout(() => {
+        setRange(wwd.navigator.range);
+      }, 1000);
+    });
     new WorldWind.ClickRecognizer(wwd, handleClick);
     new WorldWind.TapRecognizer(wwd, handleClick);
-  }, [flatGlobe, lat, lon, searchWord, actions]);
+  }, [flatGlobe, lat, lon, searchWord, actions, range]);
 
   return (
     <>
