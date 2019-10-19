@@ -127,26 +127,18 @@ const shapeConfigurationCallback = (attributes, record) => {
 function App() {
   const classes = useStyles();
   let handleWheel;
+  let handleMove;
   WorldWind.BingMapsKey = BING_KEY;
   const roundGlobe = new WorldWind.Globe(new WorldWind.EarthElevationModel());
   const flatGlobe = new WorldWind.Globe2D();
   flatGlobe.projection = new WorldWind.ProjectionMercator();
   const [searchWord, setSearchWord] = useState("");
-  const [range, setRange] = useState(2e6);
-  const [isMove, setIsMove] = useState(false);
+  const [range, setRange] = useState(600000);
   const [lat, setLat] = useState(36.256535392993314);
   const [lon, setLon] = useState(-119.2002385680952);
   const [time, setTime] = useState("2018-08-01T10:10");
   const [action, setAction] = useState({});
-  const [actions, setActions] = useState([
-    {
-      type: "Prescribed burning",
-      description: "Test",
-      time: "2018-08-01T10:10",
-      lat,
-      lon
-    }
-  ]);
+  const [actions, setActions] = useState([]);
   const [dialogOpen, setDialogOpen] = useState(false);
   const handleSearchKeyPress = e => {
     if (e.key === "Enter") {
@@ -253,13 +245,17 @@ function App() {
     const geocoder = new WorldWind.NominatimGeocoder();
     const goToAnimator = new WorldWind.GoToAnimator(wwd);
     if (searchWord) {
+      setSearchWord("");
       if (searchWord.match(WorldWind.WWUtil.latLonRegex)) {
         const tokens = searchWord.split(",");
         const lat = parseFloat(tokens[0]);
         const lon = parseFloat(tokens[1]);
         goToAnimator.goTo(new WorldWind.Location(lat, lon), () => {
-          setLat(lat);
-          setLon(lon);
+          clearTimeout(handleMove);
+          handleMove = setTimeout(() => {
+            setLat(lat);
+            setLon(lon);
+          }, 100);
         });
       } else {
         geocoder.lookup(searchWord, (geocoder, result) => {
@@ -267,8 +263,11 @@ function App() {
           const lat = parseFloat(result[0].lat);
           const lon = parseFloat(result[0].lon);
           goToAnimator.goTo(new WorldWind.Location(lat, lon), () => {
-            setLat(lat);
-            setLon(lon);
+            clearTimeout(handleMove);
+            handleMove = setTimeout(() => {
+              setLat(lat);
+              setLon(lon);
+            }, 100);
           });
         });
       }
@@ -283,8 +282,11 @@ function App() {
         goToAnimator.goTo(
           new WorldWind.Location(position.latitude, position.longitude),
           () => {
-            setLat(position.latitude);
-            setLon(position.longitude);
+            clearTimeout(handleMove);
+            handleMove = setTimeout(() => {
+              setLat(position.latitude);
+              setLon(position.longitude);
+            }, 100);
           }
         );
       }
@@ -331,7 +333,7 @@ function App() {
                 }}
                 inputProps={{ "aria-label": "search" }}
                 onKeyPress={handleSearchKeyPress}
-                value={searchWord}
+                defaultValue={searchWord}
               />
             </div>
           </Toolbar>
@@ -354,8 +356,7 @@ function App() {
         <DialogTitle id="form-dialog-title">Add action</DialogTitle>
         <DialogContent>
           <DialogContentText>
-            To subscribe to this website, please enter your email address here.
-            We will send updates occasionally.
+            Added action will be immediately shared with the other teams.
           </DialogContentText>
           <FormControl className={classes.formControl}>
             <InputLabel htmlFor="type">Action type</InputLabel>
