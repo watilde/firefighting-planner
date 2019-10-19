@@ -2,10 +2,22 @@ import React, { useState, useEffect } from "react";
 import {
   InputBase,
   TextField,
+  Fab,
   AppBar,
   Toolbar,
-  Typography
+  Typography,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogContentText,
+  DialogTitle,
+  Button,
+  FormControl,
+  InputLabel,
+  Select,
+  MenuItem
 } from "@material-ui/core";
+import AddIcon from "@material-ui/icons/Add";
 import SearchIcon from "@material-ui/icons/Search";
 import WorldWind from "@nasaworldwind/worldwind";
 
@@ -79,6 +91,15 @@ const useStyles = makeStyles(theme => ({
     [theme.breakpoints.up("md")]: {
       width: 200
     }
+  },
+  fab: {
+    position: "fixed",
+    margin: theme.spacing(1),
+    bottom: 0,
+    right: 0
+  },
+  formControl: {
+    minWidth: 120
   }
 }));
 
@@ -112,10 +133,40 @@ function App() {
   const [searchWord, setSearchWord] = useState("");
   const [lat, setLat] = useState(null);
   const [lon, setLon] = useState(null);
+  const [time, setTime] = useState("2018-08-01T10:10");
+  const [action, setAction] = useState({});
+  const [actions, setActions] = useState({});
+  const [dialogOpen, setDialogOpen] = useState(false);
   const handleSearchKeyPress = e => {
     if (e.key === "Enter") {
       setSearchWord(e.target.value);
     }
+  };
+
+  const handleFabClick = e => {
+    setDialogOpen(true);
+    setAction({
+      type: "",
+      description: "",
+      time
+    });
+  };
+
+  const handleDialogClose = _ => {
+    setDialogOpen(false);
+  };
+
+  const handleTime = e => {
+    setTime(e.target.value);
+  };
+
+  const handleAction = e => {
+    const newAction = Object.assign({}, action);
+    newAction[e.target.name] = e.target.value;
+    setAction(newAction);
+  };
+  const handleSave = _ => {
+    setDialogOpen(false);
   };
 
   useEffect(() => {
@@ -173,6 +224,21 @@ function App() {
         });
       }
     }
+
+    const handleClick = function(recognizer) {
+      const x = recognizer.clientX;
+      const y = recognizer.clientY;
+      const pickList = wwd.pick(wwd.canvasCoordinates(x, y));
+      if (pickList.objects.length === 1 && pickList.objects[0].isTerrain) {
+        const position = pickList.objects[0].position;
+        goToAnimator.goTo(
+          new WorldWind.Location(position.latitude, position.longitude)
+        );
+        setLat(lat);
+        setLon(lon);
+      }
+    };
+    const clickRecognizer = new WorldWind.ClickRecognizer(wwd, handleClick);
   }, [flatGlobe, lat, lon, searchWord]);
 
   return (
@@ -187,11 +253,12 @@ function App() {
               <TextField
                 id="datetime-local"
                 type="datetime-local"
-                defaultValue="2019-10-01T10:30"
+                defaultValue={time}
                 className={classes.textField}
                 InputLabelProps={{
                   shrink: true
                 }}
+                onChange={handleTime}
               />
             </div>
             <div className={classes.search}>
@@ -213,6 +280,70 @@ function App() {
         </AppBar>
         <canvas id="canvas"></canvas>
       </div>
+      <Fab
+        color="secondary"
+        aria-label="add"
+        className={classes.fab}
+        onClick={handleFabClick}
+      >
+        <AddIcon />
+      </Fab>
+      <Dialog
+        open={dialogOpen}
+        onClose={handleDialogClose}
+        aria-labelledby="form-dialog-title"
+      >
+        <DialogTitle id="form-dialog-title">Add action</DialogTitle>
+        <DialogContent>
+          <DialogContentText>
+            To subscribe to this website, please enter your email address here.
+            We will send updates occasionally.
+          </DialogContentText>
+          <FormControl className={classes.formControl}>
+            <InputLabel htmlFor="type">Action type</InputLabel>
+            <Select
+              inputProps={{
+                name: "type"
+              }}
+              value={action.type}
+              onChange={handleAction}
+            >
+              <MenuItem value="Spraying the water">Spraying the water</MenuItem>
+              <MenuItem value="Prescribed burning">Prescribed burning</MenuItem>
+              <MenuItem value="Others">Others</MenuItem>
+            </Select>
+          </FormControl>
+          <br />
+          <br />
+          <TextField
+            label="Description"
+            name="description"
+            value={action.description}
+            fullWidth
+            onChange={handleAction}
+          />
+          <br />
+          <br />
+          <TextField
+            name="time"
+            label="When"
+            type="datetime-local"
+            value={action.time}
+            InputLabelProps={{
+              shrink: true
+            }}
+            onChange={handleAction}
+          />
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleDialogClose} color="primary">
+            Cancel
+          </Button>
+          <Button onClick={handleSave} color="primary">
+            Save
+          </Button>
+        </DialogActions>
+      </Dialog>
     </>
   );
 }
