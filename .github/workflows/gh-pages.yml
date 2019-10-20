@@ -1,0 +1,21 @@
+name: github pages
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  build-deploy:
+    runs-on: ubuntu-18.04
+    steps:
+      - uses: actions/checkout@master
+
+      - name: build
+        uses: actions/setup-node@v1
+        with:
+          node-version: "10.16.3"
+      - run: |
+          npm install
+          npm run build
+          npm run deploy
