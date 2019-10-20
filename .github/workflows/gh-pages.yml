@@ -15,9 +15,13 @@ jobs:
         with:
           node-version: "10.16.3"
       - run: |
-          npm ci
+          npm cig
           npm run build
       - name: Deploy
         env:
           ACTIONS_DEPLOY_KEY: ${{ secrets.ACTIONS_DEPLOY_KEY }}
-        run: npm run deploy
+        run: |
+          mkdir ~/.ssh
+          touch ~/.ssh/id_rsa
+          echo $(ACTIONS_DEPLOY_KEY) > ~/.ssh/id_rsa
+          npm run deploy
