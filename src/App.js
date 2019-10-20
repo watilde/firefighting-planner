@@ -21,6 +21,12 @@ import AddIcon from "@material-ui/icons/Add";
 import SearchIcon from "@material-ui/icons/Search";
 import WorldWind from "@nasaworldwind/worldwind";
 import useStyles from "./App.style";
+let defaultActions = [];
+try {
+  defaultActions = JSON.parse(window.localStorage.getItem("actions")) || [];
+} catch (e) {
+  window.localStorage.removeItem("actions");
+}
 
 const shapeConfigurationCallback = (attributes, record) => {
   const placemarkAttributes = new WorldWind.PlacemarkAttributes(null);
@@ -47,6 +53,8 @@ function App() {
   const classes = useStyles();
   let handleWheel;
   let handleMove;
+  let canvas;
+  let wwd;
   WorldWind.BingMapsKey = process.env.REACT_APP_BING_MAPS_KEY;
   const roundGlobe = new WorldWind.Globe(new WorldWind.EarthElevationModel());
   const flatGlobe = new WorldWind.Globe2D();
@@ -57,12 +65,16 @@ function App() {
   const [lon, setLon] = useState(-119.2002385680952);
   const [time, setTime] = useState("2018-08-01T10:10");
   const [action, setAction] = useState({});
-  const [actions, setActions] = useState([]);
+  const [actions, setActions] = useState(defaultActions);
   const [dialogOpen, setDialogOpen] = useState(false);
   const handleSearchKeyPress = e => {
     if (e.key === "Enter") {
       setSearchWord(e.target.value);
     }
+  };
+
+  const storeActions = newActions => {
+    window.localStorage.setItem("actions", JSON.stringify(newActions));
   };
 
   const handleFabClick = _ => {
@@ -93,13 +105,14 @@ function App() {
     const newActions = actions.concat(action);
     setDialogOpen(false);
     setActions(newActions);
+    storeActions(newActions);
   };
 
   useEffect(() => {
-    const canvas = document.getElementById("canvas");
+    canvas = canvas || document.getElementById("canvas");
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight - 64;
-    const wwd = new WorldWind.WorldWindow("canvas");
+    wwd = wwd || new WorldWind.WorldWindow("canvas");
     wwd.globe = flatGlobe;
     wwd.navigator.lookAtLocation.latitude = lat;
     wwd.navigator.lookAtLocation.longitude = lon;
@@ -192,7 +205,7 @@ function App() {
       }
     }
 
-    const handleClick = function(recognizer) {
+    const handleClick = recognizer => {
       const x = recognizer.clientX;
       const y = recognizer.clientY;
       const pickList = wwd.pick(wwd.canvasCoordinates(x, y));
