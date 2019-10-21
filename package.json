@@ -1,6 +1,6 @@
 {
   "name": "firefighting-planner",
-  "description": "Space App Challenge 2019 from Yokohma",
+  "description": "Collaborative planning tool for fire fighting against wildfire",
   "version": "0.1.0",
   "private": true,
   "bugs": {
