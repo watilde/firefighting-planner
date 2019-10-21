@@ -9,14 +9,15 @@ jobs:
   build-deploy:
     runs-on: ubuntu-18.04
     steps:
-      - uses: actions/checkout@master
-      - name: build
+      - name: Checkout master
+        uses: actions/checkout@master
+      - name: Setup Node.js
         uses: actions/setup-node@v1
         with:
           node-version: "10.16.3"
+      - name: Install dependencies
       - run: |
           npm ci
-          npm run build
       - name: Deploy
         env:
           ACTIONS_DEPLOY_KEY: ${{ secrets.ACTIONS_DEPLOY_KEY }}
@@ -26,4 +27,5 @@ jobs:
           echo $(ACTIONS_DEPLOY_KEY) > ~/.ssh/id_rsa
           git config --global user.email "daijiro.wachi@gmail.com"
           git config --global user.name "Daijiro Wachi"
+          git remote set-url git@github.com:watilde/firefighting-planner.git
           npm run deploy
