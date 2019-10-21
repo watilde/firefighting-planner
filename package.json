@@ -11,8 +11,10 @@
     "@material-ui/core": "^4.5.1",
     "@material-ui/icons": "^4.5.1",
     "@nasaworldwind/worldwind": "^0.9.0",
+    "lodash.merge": "^4.6.2",
     "react": "^16.10.2",
     "react-dom": "^16.10.2",
+    "react-router-dom": "^5.1.2",
     "react-scripts": "3.2.0"
   },
   "scripts": {
