@@ -17,15 +17,11 @@ jobs:
           node-version: "10.16.3"
       - name: Install dependencies
         run: npm ci
+      - name: Build
+        run: npm run build
       - name: Deploy
+        uses: peaceiris/actions-gh-pages@v2.5.0
         env:
           ACTIONS_DEPLOY_KEY: ${{ secrets.ACTIONS_DEPLOY_KEY }}
-        run: |
-          mkdir ~/.ssh
-          touch ~/.ssh/id_rsa
-          echo $ACTIONS_DEPLOY_KEY > ~/.ssh/id_rsa
-          git config --global user.email "daijiro.wachi@gmail.com"
-          git config --global user.name "Daijiro Wachi"
-          git remote add origin git@github.com:watilde/firefighting-planner.git
-          npm run deploy
-          rm ~/.ssh/id_rsa
+          PUBLISH_BRANCH: gh-pages
+          PUBLISH_DIR: ./build
