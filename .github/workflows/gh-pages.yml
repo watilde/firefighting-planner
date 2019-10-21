@@ -26,5 +26,6 @@ jobs:
           echo $ACTIONS_DEPLOY_KEY > ~/.ssh/id_rsa
           git config --global user.email "daijiro.wachi@gmail.com"
           git config --global user.name "Daijiro Wachi"
+          git remote add origin git@github.com:watilde/firefighting-planner.git
           npm run deploy
           rm ~/.ssh/id_rsa
