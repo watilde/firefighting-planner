@@ -24,4 +24,6 @@ jobs:
           mkdir ~/.ssh
           touch ~/.ssh/id_rsa
           echo $(ACTIONS_DEPLOY_KEY) > ~/.ssh/id_rsa
+          git config --global user.email "daijiro.wachi@gmail.com"
+          git config --global user.name "Daijiro Wachi"
           npm run deploy
