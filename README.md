@@ -1,7 +1,7 @@
 # Firefighting planner
 
-Collaborative planning tool for fire fighting against wildfire.
-Created for Space App Challenge 2019 from Yokohama.
+POC of Collaborative planning tool for fire fighting against wildfire, created for [NASA International Space Apps Challenge
+2019](https://2019.spaceappschallenge.org/).
 
 ## Getting started
 
