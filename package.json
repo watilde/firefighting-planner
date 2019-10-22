@@ -40,8 +40,5 @@
       "last 1 safari version"
     ]
   },
-  "license": "MIT",
-  "devDependencies": {
-    "gh-pages": "^2.1.1"
-  }
+  "license": "MIT"
 }
