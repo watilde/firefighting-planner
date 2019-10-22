@@ -6,7 +6,7 @@
   "bugs": {
     "url": "https://github.com/watilde/firefighting-planner/issues"
   },
-  "homepage": "https://watilde.github.io/firefighting-planner/",
+  "homepage": "firefighting-planner/",
   "dependencies": {
     "@material-ui/core": "^4.5.1",
     "@material-ui/icons": "^4.5.1",
