@@ -56,7 +56,7 @@ function Map() {
   let handleMove;
   let canvas;
   let wwd;
-  WorldWind.configuration.baseUrl = `${process.env.PUBLIC_URL}/`;
+  WorldWind.configuration.baseUrl = `${process.env.PUBLIC_URL}`;
   WorldWind.BingMapsKey = process.env.REACT_APP_BING_MAPS_KEY;
   const roundGlobe = new WorldWind.Globe(new WorldWind.EarthElevationModel());
   const flatGlobe = new WorldWind.Globe2D();
