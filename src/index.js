@@ -5,6 +5,8 @@ import App from "./App";
 import { StoreProvider } from "./store/configureStore";
 import * as serviceWorker from "./serviceWorker";
 
+window._env = process.env;
+
 ReactDOM.render(
   <StoreProvider>
     <App />
