@@ -139,30 +139,30 @@ function Home() {
             Enter
           </Button>
         </div>
-        <Box mt={8}>
-          <Typography variant="body2" color="textSecondary" align="center">
-            {"Created for "}
-            <a
-              href="https://2019.spaceappschallenge.org"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              NASA International Space Apps Challenge 2019
-            </a>
-            {" and the world🌏"}
-            <br />
-            {"Made by "}
-            <a
-              href="https://2019.spaceappschallenge.org/challenges/living-our-world/spot-fire-v20/teams/firefighting-planner/project"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Team Firefighting planner
-            </a>
-            {" with love💖"}
-          </Typography>
-        </Box>
       </Container>
+      <Box mt={8}>
+        <Typography variant="body2" color="textSecondary" align="center">
+          {"Created for "}
+          <a
+            href="https://2019.spaceappschallenge.org"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            NASA International Space Apps Challenge 2019
+          </a>
+          {" and the world🌏"}
+          <br />
+          {"Made by "}
+          <a
+            href="https://2019.spaceappschallenge.org/challenges/living-our-world/spot-fire-v20/teams/firefighting-planner/project"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Team Firefighting planner
+          </a>
+          {" with love💖"}
+        </Typography>
+      </Box>
     </>
   );
 }
