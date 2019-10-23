@@ -2,13 +2,16 @@ import React, { createContext, useReducer, useContext, useEffect } from "react";
 import merge from "lodash.merge";
 import combineReducers from "./combineReducers";
 import { name, version } from "../../package.json";
-import actions, { actionsState } from "./reducers/actions";
+import app, { appState } from "./reducers/app";
+import planner, { plannerState } from "./reducers/planner";
 
 const rootReducer = combineReducers({
-  actions
+  app,
+  planner
 });
 const initialState = {
-  actions: actionsState
+  app: appState,
+  planner: plannerState
 };
 const persistedState = JSON.parse(localStorage.getItem(`${name}@${version}`));
 const StoreContext = createContext(merge(initialState, persistedState));
