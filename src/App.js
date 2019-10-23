@@ -39,8 +39,7 @@ const shapeConfigurationCallback = (attributes, record) => {
     WorldWind.OFFSET_FRACTION,
     1.0
   );
-  placemarkAttributes.imageSource =
-    WorldWind.configuration.baseUrl + "images/white-dot.png";
+  placemarkAttributes.imageSource = `${WorldWind.configuration.baseUrl}images/white-dot.png`;
   const configuration = {};
   configuration.name = attributes.recordNumber;
   configuration.attributes = new WorldWind.PlacemarkAttributes(
@@ -140,7 +139,7 @@ function App() {
 
     const fireLayer = new WorldWind.RenderableLayer("Fires");
     const fireShapefile = new WorldWind.Shapefile(
-      "/firms/VNP14IMGTDL_NRT_USA_contiguous_and_Hawaii_24h/VNP14IMGTDL_NRT_USA_contiguous_and_Hawaii_24h.shp"
+      `${WorldWind.configuration.baseUrl}firms/VNP14IMGTDL_NRT_USA_contiguous_and_Hawaii_24h/VNP14IMGTDL_NRT_USA_contiguous_and_Hawaii_24h.shp`
     );
     fireShapefile.load(null, shapeConfigurationCallback, fireLayer);
     wwd.addLayer(fireLayer);
