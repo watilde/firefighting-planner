@@ -6,7 +6,7 @@
   "bugs": {
     "url": "https://github.com/watilde/firefighting-planner"
   },
-  "homepage": "https://firefighting-planner.dev/",
+  "homepage": "https://firefighting-planner.dev",
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
