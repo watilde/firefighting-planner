@@ -21,6 +21,7 @@ import AddIcon from "@material-ui/icons/Add";
 import SearchIcon from "@material-ui/icons/Search";
 import WorldWind from "@nasaworldwind/worldwind";
 import useStyles from "./App.style";
+
 let defaultActions = [];
 try {
   defaultActions = JSON.parse(window.localStorage.getItem("actions")) || [];
@@ -56,7 +57,7 @@ function App() {
   let canvas;
   let wwd;
   console.log(process.env);
-  WorldWind.configuration.baseUrl = process.env.PUBLIC_URL;
+  WorldWind.configuration.baseUrl = `${process.env.PUBLIC_URL}/`;
   WorldWind.BingMapsKey = process.env.REACT_APP_BING_MAPS_KEY;
   const roundGlobe = new WorldWind.Globe(new WorldWind.EarthElevationModel());
   const flatGlobe = new WorldWind.Globe2D();
