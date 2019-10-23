@@ -1,5 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom";
+import CssBaseline from "@material-ui/core/CssBaseline";
 import "./index.css";
 import App from "./App";
 import { StoreProvider } from "./store/configureStore";
@@ -7,6 +8,7 @@ import * as serviceWorker from "./serviceWorker";
 
 ReactDOM.render(
   <StoreProvider>
+    <CssBaseline />
     <App />
   </StoreProvider>,
   document.getElementById("root")
