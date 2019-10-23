@@ -4,9 +4,9 @@
   "version": "0.1.0",
   "private": true,
   "bugs": {
-    "url": "https://github.com/watilde/firefighting-planner/issues"
+    "url": "https://github.com/firefighting-planner/firefighting-planner.github.io"
   },
-  "homepage": "https://watilde.github.io/firefighting-planner/",
+  "homepage": "https://firefighting-planner.github.io/",
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
