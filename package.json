@@ -7,6 +7,12 @@
     "url": "https://github.com/watilde/firefighting-planner/issues"
   },
   "homepage": "https://watilde.github.io/firefighting-planner/",
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
+  },
   "dependencies": {
     "@material-ui/core": "^4.5.1",
     "@material-ui/icons": "^4.5.1",
@@ -17,12 +23,12 @@
     "react-router-dom": "^5.1.2",
     "react-scripts": "3.2.0"
   },
-  "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
+  "devDependencies": {
+    "husky": "^3.0.9",
+    "prettier": "^1.18.2",
+    "pretty-quick": "^2.0.0"
   },
+  "license": "MIT",
   "eslintConfig": {
     "extends": "react-app"
   },
@@ -37,12 +43,6 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  },
-  "license": "MIT",
-  "devDependencies": {
-    "husky": "^3.0.9",
-    "prettier": "^1.18.2",
-    "pretty-quick": "^2.0.0"
   },
   "husky": {
     "hooks": {

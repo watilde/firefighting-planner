@@ -1,4 +1,4 @@
-import React, { createContext, useReducer, useContext } from "react";
+import React, { createContext, useReducer, useContext, useEffect } from "react";
 import merge from "lodash.merge";
 import combineReducers from "./combineReducers";
 import { name, version } from "../../package.json";
@@ -11,7 +11,7 @@ const initialState = {
   actions: actionsState
 };
 const persistedState = JSON.parse(localStorage.getItem(`${name}@${version}`));
-const StoreContext = createContext(merge(initialState), persistedState);
+const StoreContext = createContext(merge(initialState, persistedState));
 
 export const useStore = store => {
   const { state, dispatch } = useContext(StoreContext);
@@ -20,6 +20,9 @@ export const useStore = store => {
 
 export const StoreProvider = ({ children }) => {
   const [state, dispatch] = useReducer(rootReducer, initialState);
+  useEffect(() => {
+    localStorage.setItem(`${name}@${version}`, JSON.stringify(state));
+  }, [state]);
   return (
     <StoreContext.Provider value={{ state, dispatch }}>
       {children}
