@@ -28,7 +28,7 @@ function PlanButton() {
     dispatch({
       type: "@planner/setPlan",
       plan: {
-        category: "plan",
+        category: "Plan",
         uuid: uuidv4(),
         type: "",
         description: "",
