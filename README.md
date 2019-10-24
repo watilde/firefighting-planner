@@ -12,11 +12,6 @@ POC of Collaborative planning tool for fire fighting against wildfire, created f
 1. Download Desktop from https://desktop.github.com/
 2. Clone this repository into your local
 
-#### Docker
-
-1. Download client from https://docs.docker.com/docker-for-mac/
-2. Run it
-
 #### Node.js
 
 1. Download LTS version from https://nodejs.org/en/
@@ -36,11 +31,25 @@ $ cd firefighting-planner
 $ npm install
 ```
 
-3. Run local server
+3. Put your token into `.env`
+
+```console
+$ cp .env.example .env
+# Put your token
+```
+
+4. Run local server
 
 ```console
 $ npm start
 ```
 
-4. Open app
-   > http://localhost:3000
+5. Open app
+
+http://localhost:3000
+
+## Known issues
+
+### [.WebGL-0x7ffc5ed87800]RENDER WARNING: there is no texture bound to the unit 0
+
+https://github.com/NASAWorldWind/WebWorldWind/issues/302
