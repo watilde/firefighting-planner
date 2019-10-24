@@ -26,13 +26,12 @@ function Map() {
   const { dispatch, state } = useStore();
   const { lat, lon, range, plans } = state.planner;
   const { threeD } = state.map;
-
   const { searchWord } = state.app;
 
   const setLat = newLat => {
     dispatch({
       type: "@planner/setLat",
-      lan: newLat
+      lat: newLat
     });
   };
   const setLon = newLon => {
@@ -45,12 +44,6 @@ function Map() {
     dispatch({
       type: "@planner/setRange",
       range: newRange
-    });
-  };
-  const setSearchWord = newSearchWord => {
-    dispatch({
-      type: "@planner/setSearchWord",
-      range: newSearchWord
     });
   };
 

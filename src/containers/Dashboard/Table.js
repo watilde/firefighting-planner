@@ -90,9 +90,6 @@ function Table() {
     return new Promise((resolve, reject) => {
       resolve();
     });
-    return new Promise((resolve, reject) => {
-      resolve();
-    });
   };
   const onRowDelete = oldData => {
     if (oldData.category === "Plan") {

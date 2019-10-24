@@ -30,7 +30,7 @@ function Map() {
   const setLat = newLat => {
     dispatch({
       type: "@planner/setLat",
-      lan: newLat
+      lat: newLat
     });
   };
   const setLon = newLon => {
