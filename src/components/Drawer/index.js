@@ -1,11 +1,5 @@
 import React from "react";
-import {
-  ListItem,
-  List,
-  Divider,
-  IconButton,
-  Drawer as AppDrawer
-} from "@material-ui/core";
+import { Divider, IconButton, Drawer as AppDrawer } from "@material-ui/core";
 import CloseIcon from "@material-ui/icons/Close";
 import { makeStyles } from "@material-ui/core/styles";
 import { useStore } from "../../store/configureStore";

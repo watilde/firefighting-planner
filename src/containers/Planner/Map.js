@@ -25,6 +25,8 @@ const shapeConfigurationCallback = (attributes, record) => {
 function Map() {
   const { dispatch, state } = useStore();
   const { lat, lon, range, actions } = state.planner;
+  const { threeD } = state.map;
+
   const { searchWord } = state.app;
 
   const setLat = newLat => {
@@ -66,7 +68,11 @@ function Map() {
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight - 64;
     wwd = wwd || new WorldWind.WorldWindow("canvas");
-    wwd.globe = flatGlobe;
+    if (threeD) {
+      wwd.globe = roundGlobe;
+    } else {
+      wwd.globe = flatGlobe;
+    }
     wwd.navigator.lookAtLocation.latitude = lat;
     wwd.navigator.lookAtLocation.longitude = lon;
     wwd.navigator.range = range;
