@@ -1,15 +1,15 @@
 export const appState = {
-  time: "2018-08-01T10:10",
+  dateTime: "2018-08-01T10:10",
   searchWord: "",
   drawerOpen: true
 };
 
 export default (state = appState, action) => {
   switch (action.type) {
-    case "@app/setTime": {
+    case "@app/setDateTime": {
       return {
         ...state,
-        time: action.time
+        dateTime: action.dateTime
       };
     }
 

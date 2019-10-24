@@ -10,13 +10,14 @@ import CloseIcon from "@material-ui/icons/Close";
 import { makeStyles } from "@material-ui/core/styles";
 import { useStore } from "../../store/configureStore";
 import Menu from "./Menu";
+import TargetDateTime from "./TargetDateTime";
 import MapOptions from "./MapOptions";
 
 const useStyle = makeStyles(theme => ({
   drawerHeader: {
     display: "flex",
     alignItems: "center",
-    justifyContent: "flex-end"
+    justifyContent: "flex-start"
   },
   drawerPaper: {
     width: 260
@@ -49,6 +50,8 @@ function Drawer() {
           <CloseIcon />
         </IconButton>
       </div>
+      <Divider />
+      <TargetDateTime />
       <Divider />
       <Menu />
       <Divider />
