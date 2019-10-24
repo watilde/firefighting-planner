@@ -4,7 +4,7 @@ import { fade, makeStyles } from "@material-ui/core/styles";
 import SearchIcon from "@material-ui/icons/Search";
 import MenuIcon from "@material-ui/icons/Menu";
 import { useStore } from "../../store/configureStore";
-import Logout from "./Logout";
+import Account from "./Account";
 import Search from "./Search";
 
 const useStyle = makeStyles(theme => ({
@@ -44,7 +44,7 @@ function Header() {
             Firefighting planner
           </Typography>
           <Search />
-          <Logout />
+          <Account />
         </Toolbar>
       </AppBar>
     </div>

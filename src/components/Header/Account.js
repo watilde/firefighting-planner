@@ -3,7 +3,7 @@ import { Redirect } from "react-router-dom";
 import { Menu, MenuItem, IconButton } from "@material-ui/core";
 import AccountCircle from "@material-ui/icons/AccountCircle";
 
-function Logout() {
+function Account() {
   const [anchorEl, setAnchorEl] = useState(null);
   const [open, setOpen] = useState(false);
   const [redirect, setRedirect] = useState(false);
@@ -36,10 +36,17 @@ function Logout() {
         </MenuItem>
         <MenuItem
           component="a"
+          href="https://opennex.org/project/projectDetail/275"
+          target="_blank"
+        >
+          OpenNEX
+        </MenuItem>
+        <MenuItem
+          component="a"
           href="https://github.com/watilde/firefighting-planner"
           target="_blank"
         >
-          Source code
+          GitHub
         </MenuItem>
         <MenuItem onClick={handleLogout}>Logout</MenuItem>
       </Menu>
@@ -47,4 +54,4 @@ function Logout() {
   );
 }
 
-export default Logout;
+export default Account;
