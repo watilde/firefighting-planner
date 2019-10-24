@@ -48,7 +48,7 @@ const useStyles = makeStyles(theme => ({
   description: {
     fontSize: "16px",
     border: "1px solid rgba(0, 0, 0, 0.23)",
-    padding: "8.5px 24px 12.5px 14px",
+    padding: "12.5px 24px 12.5px 14px",
     borderRadius: "4px",
     minHeight: "56px"
   }
