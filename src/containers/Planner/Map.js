@@ -33,7 +33,7 @@ const shapeConfigurationCallback = (attributes, record) => {
 function Map() {
   const { dispatch, state } = useStore();
   const { lat, lon, range, plans } = state.planner;
-  const { compass, cordinates, controller, layer, threeD } = state.map;
+  const { compass, cordinates, viewControls, layer, threeD } = state.map;
   const { searchWord } = state.app;
 
   const setLat = newLat => {
@@ -86,7 +86,7 @@ function Map() {
         layer: new WorldWind.CoordinatesDisplayLayer(wwd),
         enabled: cordinates
       },
-      { layer: new WorldWind.ViewControlsLayer(wwd), enabled: controller }
+      { layer: new WorldWind.ViewControlsLayer(wwd), enabled: viewControls }
     ];
 
     for (let i = 0; i < layers.length; i++) {
@@ -195,7 +195,7 @@ function Map() {
     new WorldWind.ClickRecognizer(wwd, handleClick);
     new WorldWind.TapRecognizer(wwd, handleClick);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [searchWord, plans, layer, threeD, compass, cordinates, controller]);
+  }, [searchWord, plans, layer, threeD, compass, cordinates, viewControls]);
 
   return <canvas id="canvas"></canvas>;
 }

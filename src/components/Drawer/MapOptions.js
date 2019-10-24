@@ -24,7 +24,7 @@ const useStyle = makeStyles(theme => ({
 function MapOptions() {
   const classes = useStyle();
   const { state, dispatch } = useStore();
-  const { threeD, compass, cordinates, controller } = state.map;
+  const { threeD, compass, cordinates, viewControls } = state.map;
 
   const handleChange = target => {
     dispatch({
@@ -63,11 +63,11 @@ function MapOptions() {
         />
       </ListItem>
       <ListItem className={classes.listItem}>
-        <Typography className={classes.listText}>Controller</Typography>
+        <Typography className={classes.listText}>View Controls</Typography>
         <Switch
-          checked={controller}
+          checked={viewControls}
           onChange={() => {
-            handleChange("Controller");
+            handleChange("ViewControls");
           }}
         />
       </ListItem>

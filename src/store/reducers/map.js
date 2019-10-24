@@ -1,7 +1,7 @@
 export const mapState = {
   compass: false,
   cordinates: false,
-  controller: false,
+  viewControls: false,
   threeD: false,
   layer: { label: "Select leyer", tag: "_" }
 };
@@ -32,10 +32,10 @@ export default (state = mapState, action) => {
         cordinates: !state.cordinates
       };
     }
-    case "@map/toggleController": {
+    case "@map/toggleViewControls": {
       return {
         ...state,
-        controller: !state.controller
+        viewControls: !state.viewControls
       };
     }
     default: {
