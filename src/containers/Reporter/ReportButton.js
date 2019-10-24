@@ -28,6 +28,7 @@ function ReportButton() {
     dispatch({
       type: "@reporter/setReport",
       report: {
+        category: "report",
         uuid: uuidv4(),
         type: "",
         description: "",

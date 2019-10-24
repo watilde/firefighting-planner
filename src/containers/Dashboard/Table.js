@@ -48,6 +48,21 @@ function Table() {
   const { plans } = state.planner;
   const { reports } = state.reporter;
   const data = [].concat(plans, reports);
+  const onRowAdd = newData => {
+    return new Promise((resolve, reject) => {
+      resolve();
+    });
+  };
+  const onRowUpdate = (newData, oldData) => {
+    return new Promise((resolve, reject) => {
+      resolve();
+    });
+  };
+  const onRowDelete = oldData => {
+    return new Promise((resolve, reject) => {
+      resolve();
+    });
+  };
   return (
     <MaterialTable
       title="All posted data"
@@ -63,6 +78,7 @@ function Table() {
         borderRadius: 0
       }}
       columns={[
+        { title: "Category", field: "category" },
         { title: "Type", field: "type" },
         { title: "Description", field: "description" },
         { title: "Latitude", field: "lat" },
@@ -70,9 +86,9 @@ function Table() {
         { title: "Date time", field: "dateTime" }
       ]}
       editable={{
-        onRowAdd: newData => console.log(newData),
-        onRowUpdate: (newData, oldData) => console.log(newData, oldData),
-        onRowDelete: oldData => console.log(oldData)
+        onRowAdd,
+        onRowUpdate,
+        onRowDelete
       }}
       data={data}
     />
