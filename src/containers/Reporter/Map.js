@@ -45,12 +45,6 @@ function Map() {
       range: newRange
     });
   };
-  const setSearchWord = newSearchWord => {
-    dispatch({
-      type: "@planner/setSearchWord",
-      range: newSearchWord
-    });
-  };
 
   let handleWheel;
   let handleMove;

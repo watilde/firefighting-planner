@@ -6,6 +6,7 @@ import { useStore } from "../../store/configureStore";
 import Menu from "./Menu";
 import TargetDateTime from "./TargetDateTime";
 import MapOptions from "./MapOptions";
+import LayerOptions from "./LayerOptions";
 
 const useStyle = makeStyles(theme => ({
   drawerHeader: {
@@ -50,6 +51,8 @@ function Drawer() {
       <Menu />
       <Divider />
       <MapOptions />
+      <Divider />
+      <LayerOptions />
     </AppDrawer>
   );
 }
