@@ -60,7 +60,9 @@ function MapOptions() {
 
   return (
     <List className={classes.list}>
-      <ListItem className={classes.listHeader}>Map Options</ListItem>
+      <ListItem className={classes.listHeader}>
+        Map Options for Planner
+      </ListItem>
       {LAYERS.map(item => {
         return (
           <ListItem key={item.tag} className={classes.listItem}>

@@ -146,6 +146,7 @@ function Map() {
           );
           wmsConfig.title = layer.label;
           const wmsLayer = new WorldWind.WmsLayer(wmsConfig);
+          wmsLayer.opacity = "0.3";
           wwd.addLayer(wmsLayer);
         });
     }
@@ -206,7 +207,7 @@ function Map() {
     });
     new WorldWind.ClickRecognizer(wwd, handleClick);
     new WorldWind.TapRecognizer(wwd, handleClick);
-  }, [searchWord, plans]);
+  }, [searchWord, plans, layer, threeD]);
 
   return <canvas id="canvas"></canvas>;
 }
