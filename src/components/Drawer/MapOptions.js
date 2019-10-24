@@ -24,7 +24,7 @@ const useStyle = makeStyles(theme => ({
 function MapOptions() {
   const classes = useStyle();
   const { state, dispatch } = useStore();
-  const { threeD } = state.map;
+  const { threeD, compass, cordinates, controller } = state.map;
 
   const handleChange = target => {
     dispatch({
@@ -41,6 +41,33 @@ function MapOptions() {
           checked={threeD}
           onChange={() => {
             handleChange("ThreeD");
+          }}
+        />
+      </ListItem>
+      <ListItem className={classes.listItem}>
+        <Typography className={classes.listText}>Compass</Typography>
+        <Switch
+          checked={compass}
+          onChange={() => {
+            handleChange("Compass");
+          }}
+        />
+      </ListItem>
+      <ListItem className={classes.listItem}>
+        <Typography className={classes.listText}>Cordinates</Typography>
+        <Switch
+          checked={cordinates}
+          onChange={() => {
+            handleChange("Cordinates");
+          }}
+        />
+      </ListItem>
+      <ListItem className={classes.listItem}>
+        <Typography className={classes.listText}>Controller</Typography>
+        <Switch
+          checked={controller}
+          onChange={() => {
+            handleChange("Controller");
           }}
         />
       </ListItem>

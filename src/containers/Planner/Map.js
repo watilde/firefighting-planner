@@ -33,7 +33,7 @@ const shapeConfigurationCallback = (attributes, record) => {
 function Map() {
   const { dispatch, state } = useStore();
   const { lat, lon, range, plans } = state.planner;
-  const { layer, threeD } = state.map;
+  const { compass, cordinates, controller, layer, threeD } = state.map;
   const { searchWord } = state.app;
 
   const setLat = newLat => {
@@ -81,9 +81,12 @@ function Map() {
       { layer: new WorldWind.BingRoadsLayer(null), enabled: false },
       { layer: new WorldWind.OpenStreetMapImageLayer(null), enabled: false },
       { layer: new WorldWind.AtmosphereLayer(), enabled: true },
-      { layer: new WorldWind.CompassLayer(), enabled: true },
-      { layer: new WorldWind.CoordinatesDisplayLayer(wwd), enabled: true },
-      { layer: new WorldWind.ViewControlsLayer(wwd), enabled: true }
+      { layer: new WorldWind.CompassLayer(), enabled: compass },
+      {
+        layer: new WorldWind.CoordinatesDisplayLayer(wwd),
+        enabled: cordinates
+      },
+      { layer: new WorldWind.ViewControlsLayer(wwd), enabled: controller }
     ];
 
     for (let i = 0; i < layers.length; i++) {
@@ -192,7 +195,7 @@ function Map() {
     new WorldWind.ClickRecognizer(wwd, handleClick);
     new WorldWind.TapRecognizer(wwd, handleClick);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [searchWord, plans, layer, threeD]);
+  }, [searchWord, plans, layer, threeD, compass, cordinates, controller]);
 
   return <canvas id="canvas"></canvas>;
 }
