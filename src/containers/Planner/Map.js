@@ -206,7 +206,7 @@ function Map() {
     });
     new WorldWind.ClickRecognizer(wwd, handleClick);
     new WorldWind.TapRecognizer(wwd, handleClick);
-  }, [flatGlobe, lat, lon, searchWord, plans, range]);
+  }, [searchWord, plans]);
 
   return <canvas id="canvas"></canvas>;
 }
