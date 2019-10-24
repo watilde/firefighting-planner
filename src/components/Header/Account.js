@@ -18,6 +18,9 @@ function Account() {
   const handleLogout = () => {
     setRedirect(true);
   };
+  const handleClearCache = () => {
+    localStorage.clear();
+  };
   if (redirect) {
     return <Redirect push to="/" />;
   }
@@ -48,6 +51,7 @@ function Account() {
         >
           GitHub
         </MenuItem>
+        <MenuItem onClick={handleClearCache}>Clear cache</MenuItem>
         <MenuItem onClick={handleLogout}>Logout</MenuItem>
       </Menu>
     </>
