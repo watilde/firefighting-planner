@@ -27,6 +27,20 @@ function Logout() {
         <AccountCircle />
       </IconButton>
       <Menu open={open} onClose={handleProfileMenuClose} anchorEl={anchorEl}>
+        <MenuItem
+          component="a"
+          href="https://2019.spaceappschallenge.org/challenges/living-our-world/spot-fire-v20/teams/firefighting-planner/project"
+          target="_blank"
+        >
+          Project detail
+        </MenuItem>
+        <MenuItem
+          component="a"
+          href="https://github.com/watilde/firefighting-planner"
+          target="_blank"
+        >
+          Source code
+        </MenuItem>
         <MenuItem onClick={handleLogout}>Logout</MenuItem>
       </Menu>
     </>
