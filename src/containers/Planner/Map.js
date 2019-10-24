@@ -146,7 +146,7 @@ function Map() {
           );
           wmsConfig.title = layer.label;
           const wmsLayer = new WorldWind.WmsLayer(wmsConfig);
-          wmsLayer.opacity = "0.3";
+          wmsLayer.opacity = "0.5";
           wwd.addLayer(wmsLayer);
         });
     }
