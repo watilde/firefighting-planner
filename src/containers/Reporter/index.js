@@ -1,11 +1,16 @@
 import React from "react";
 import Header from "../../components/Header";
+import ReportButton from "./ReportButton";
+import ReportDialog from "./ReportDialog";
+import Map from "./Map";
 
 function Reporter() {
   return (
     <>
       <Header />
-      <div>Reporter</div>
+      <Map />
+      <ReportDialog />
+      <ReportButton />
     </>
   );
 }

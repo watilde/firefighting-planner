@@ -4,15 +4,20 @@ import combineReducers from "./combineReducers";
 import { name, version } from "../../package.json";
 import app, { appState } from "./reducers/app";
 import planner, { plannerState } from "./reducers/planner";
+import reporter, { reporterState } from "./reducers/reporter";
 
 const rootReducer = combineReducers({
   app,
-  planner
+  planner,
+  reporter
 });
+
 const initialState = {
   app: appState,
-  planner: plannerState
+  planner: plannerState,
+  reporter: reporterState
 };
+
 const persistedState = JSON.parse(localStorage.getItem(`${name}@${version}`));
 const StoreContext = createContext(merge(initialState, persistedState));
 
