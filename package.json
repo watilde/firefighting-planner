@@ -18,10 +18,12 @@
     "@material-ui/icons": "^4.5.1",
     "@nasaworldwind/worldwind": "^0.9.0",
     "lodash.merge": "^4.6.2",
+    "material-table": "^1.53.0",
     "react": "^16.10.2",
     "react-dom": "^16.10.2",
     "react-router-dom": "^5.1.2",
-    "react-scripts": "3.2.0"
+    "react-scripts": "3.2.0",
+    "uuid": "^3.3.3"
   },
   "devDependencies": {
     "husky": "^3.0.9",

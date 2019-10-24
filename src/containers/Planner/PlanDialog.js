@@ -21,9 +21,9 @@ const useStyle = makeStyles(theme => ({
   }
 }));
 
-function ActionDialog() {
+function PlanDialog() {
   const { dispatch, state } = useStore();
-  const { action, actions, dialogOpen } = state.planner;
+  const { plan, plans, dialogOpen } = state.planner;
   const classes = useStyle();
 
   const handleDialogClose = () => {
@@ -33,20 +33,20 @@ function ActionDialog() {
     });
   };
 
-  const handleAction = e => {
-    const newAction = Object.assign({}, action);
-    newAction[e.target.name] = e.target.value;
+  const handlePlan = e => {
+    const newPlan = Object.assign({}, plan);
+    newPlan[e.target.name] = e.target.value;
     dispatch({
-      type: "@planner/setAction",
-      action: newAction
+      type: "@planner/setPlan",
+      plan: newPlan
     });
   };
 
   const handleSave = _ => {
-    const newActions = [].concat(actions, action);
+    const newPlans = [].concat(plans, plan);
     dispatch({
-      type: "@planner/setActions",
-      actions: newActions
+      type: "@planner/setPlans",
+      plans: newPlans
     });
     dispatch({
       type: "@planner/setDialogOpen",
@@ -60,19 +60,19 @@ function ActionDialog() {
       onClose={handleDialogClose}
       aria-labelledby="form-dialog-title"
     >
-      <DialogTitle id="form-dialog-title">Add action</DialogTitle>
+      <DialogTitle id="form-dialog-title">Add plan</DialogTitle>
       <DialogContent>
         <DialogContentText>
-          Added action will be immediately shared with the other teams.
+          Added plan will be immediately shared with the other teams.
         </DialogContentText>
         <FormControl className={classes.formControl}>
-          <InputLabel htmlFor="type">Action type</InputLabel>
+          <InputLabel htmlFor="type">Plan type</InputLabel>
           <Select
             inputProps={{
               name: "type"
             }}
-            value={action.type}
-            onChange={handleAction}
+            value={plan.type}
+            onChange={handlePlan}
           >
             <MenuItem value="Spraying the water">Spraying the water</MenuItem>
             <MenuItem value="Prescribed burning">Prescribed burning</MenuItem>
@@ -84,21 +84,21 @@ function ActionDialog() {
         <TextField
           label="Description"
           name="description"
-          value={action.description}
+          value={plan.description}
           fullWidth
-          onChange={handleAction}
+          onChange={handlePlan}
         />
         <br />
         <br />
         <TextField
-          name="time"
+          name="dateTime"
           label="When"
           type="datetime-local"
-          value={action.time}
+          value={plan.dateTime}
           InputLabelProps={{
             shrink: true
           }}
-          onChange={handleAction}
+          onChange={handlePlan}
         />
       </DialogContent>
       <DialogActions>
@@ -113,4 +113,4 @@ function ActionDialog() {
   );
 }
 
-export default ActionDialog;
+export default PlanDialog;

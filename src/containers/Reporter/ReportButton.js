@@ -2,6 +2,7 @@ import React from "react";
 import { Fab } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import AddIcon from "@material-ui/icons/Add";
+import uuidv4 from "uuid/v4";
 import { useStore } from "../../store/configureStore";
 
 const useStyle = makeStyles(theme => ({
@@ -16,7 +17,7 @@ const useStyle = makeStyles(theme => ({
 function ReportButton() {
   const { state, dispatch } = useStore();
   const { lat, lon } = state.reporter;
-  const { time } = state.app;
+  const { dateTime } = state.app;
   const classes = useStyle();
 
   const handleFabClick = _ => {
@@ -27,9 +28,10 @@ function ReportButton() {
     dispatch({
       type: "@reporter/setReport",
       report: {
+        uuid: uuidv4(),
         type: "",
         description: "",
-        time,
+        dateTime,
         lat,
         lon
       }

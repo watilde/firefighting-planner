@@ -24,7 +24,7 @@ const shapeConfigurationCallback = (attributes, record) => {
 
 function Map() {
   const { dispatch, state } = useStore();
-  const { lat, lon, range, actions } = state.planner;
+  const { lat, lon, range, plans } = state.planner;
   const { threeD } = state.map;
 
   const { searchWord } = state.app;
@@ -101,7 +101,7 @@ function Map() {
     fireShapefile.load(null, shapeConfigurationCallback, fireLayer);
     wwd.addLayer(fireLayer);
 
-    const actionsLayer = new WorldWind.RenderableLayer("Actions");
+    const plansLayer = new WorldWind.RenderableLayer("Plans");
     const commonPlacemarkAttributes = new WorldWind.PlacemarkAttributes(null);
     commonPlacemarkAttributes.imageScale = 0.5;
     commonPlacemarkAttributes.imageColor = WorldWind.Color.GREEN;
@@ -111,13 +111,13 @@ function Map() {
       WorldWind.OFFSET_FRACTION,
       1.0
     );
-    actions.forEach(action => {
+    plans.forEach(plan => {
       const placemark = new WorldWind.Placemark(
-        new WorldWind.Position(action.lat, action.lon, 1e2),
+        new WorldWind.Position(plan.lat, plan.lon, 1e2),
         true,
         null
       );
-      placemark.label = `${action.type}\n${action.time}`;
+      placemark.label = `${plan.type}\n${plan.time}`;
       placemark.altitudeMode = WorldWind.RELATIVE_TO_GROUND;
       const placemarkAttributes = new WorldWind.PlacemarkAttributes(
         commonPlacemarkAttributes
@@ -129,9 +129,9 @@ function Map() {
       );
       highlightAttributes.imageScale = 1.2;
       placemark.highlightAttributes = highlightAttributes;
-      actionsLayer.addRenderable(placemark);
+      plansLayer.addRenderable(placemark);
     });
-    wwd.addLayer(actionsLayer);
+    wwd.addLayer(plansLayer);
 
     const geocoder = new WorldWind.NominatimGeocoder();
     const goToAnimator = new WorldWind.GoToAnimator(wwd);
@@ -189,7 +189,7 @@ function Map() {
     });
     new WorldWind.ClickRecognizer(wwd, handleClick);
     new WorldWind.TapRecognizer(wwd, handleClick);
-  }, [flatGlobe, lat, lon, searchWord, actions, range]);
+  }, [flatGlobe, lat, lon, searchWord, plans, range]);
 
   return <canvas id="canvas"></canvas>;
 }

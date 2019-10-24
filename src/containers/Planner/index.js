@@ -1,8 +1,8 @@
 import React from "react";
 import Header from "../../components/Header";
 import Drawer from "../../components/Drawer";
-import ActionButton from "./ActionButton";
-import ActionDialog from "./ActionDialog";
+import PlanButton from "./PlanButton";
+import PlanDialog from "./PlanDialog";
 import Map from "./Map";
 
 function Planner() {
@@ -11,8 +11,8 @@ function Planner() {
       <Header />
       <Drawer />
       <Map />
-      <ActionDialog />
-      <ActionButton />
+      <PlanDialog />
+      <PlanButton />
     </>
   );
 }

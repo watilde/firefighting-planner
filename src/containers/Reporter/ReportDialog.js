@@ -90,10 +90,10 @@ function ReportDialog() {
         <br />
         <br />
         <TextField
-          name="time"
+          name="dateTime"
           label="When"
           type="datetime-local"
-          value={report.time}
+          value={report.dateTime}
           InputLabelProps={{
             shrink: true
           }}

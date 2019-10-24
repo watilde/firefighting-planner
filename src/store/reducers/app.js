@@ -1,7 +1,7 @@
 export const appState = {
   dateTime: "2018-08-01T10:10",
   searchWord: "",
-  drawerOpen: true
+  drawerOpen: false
 };
 
 export default (state = appState, action) => {

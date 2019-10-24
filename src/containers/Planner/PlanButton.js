@@ -2,6 +2,7 @@ import React from "react";
 import { Fab } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import AddIcon from "@material-ui/icons/Add";
+import uuidv4 from "uuid/v4";
 import { useStore } from "../../store/configureStore";
 
 const useStyle = makeStyles(theme => ({
@@ -13,10 +14,10 @@ const useStyle = makeStyles(theme => ({
   }
 }));
 
-function ActionButton() {
+function PlanButton() {
   const { state, dispatch } = useStore();
   const { lat, lon } = state.planner;
-  const { time } = state.app;
+  const { dateTime } = state.app;
   const classes = useStyle();
 
   const handleFabClick = _ => {
@@ -25,11 +26,12 @@ function ActionButton() {
       dialogOpen: true
     });
     dispatch({
-      type: "@planner/setAction",
-      action: {
+      type: "@planner/setPlan",
+      plan: {
+        uuid: uuidv4(),
         type: "",
         description: "",
-        time,
+        dateTime,
         lat,
         lon
       }
@@ -47,4 +49,4 @@ function ActionButton() {
   );
 }
 
-export default ActionButton;
+export default PlanButton;

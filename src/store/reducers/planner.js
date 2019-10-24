@@ -2,17 +2,17 @@ export const plannerState = {
   range: 600000,
   lat: 36.256535392993314,
   lon: -119.2002385680952,
-  actions: [],
+  plans: [],
   dialogOpen: false,
-  action: {}
+  plan: {}
 };
 
 export default (state = plannerState, action) => {
   switch (action.type) {
-    case "@planner/setAction": {
+    case "@planner/setPlan": {
       return {
         ...state,
-        action: action.action
+        plan: action.plan
       };
     }
     case "@planner/setDialogOpen": {
@@ -42,10 +42,10 @@ export default (state = plannerState, action) => {
       };
     }
 
-    case "@planner/setActions": {
+    case "@planner/setPlans": {
       return {
         ...state,
-        actions: action.actions
+        plans: action.plans
       };
     }
 
