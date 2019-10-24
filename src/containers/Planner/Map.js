@@ -2,6 +2,14 @@ import React, { useEffect } from "react";
 import WorldWind from "@nasaworldwind/worldwind";
 import { useStore } from "../../store/configureStore";
 
+const WMS =
+  "https://neo.sci.gsfc.nasa.gov/wms/wms?SERVICE=WMS&REQUEST=GetCapabilities&VERSION=1.3.0";
+function parseXML(response) {
+  return response.text().then(stringContainingXMLSource => {
+    const parser = new DOMParser();
+    return parser.parseFromString(stringContainingXMLSource, "text/xml");
+  });
+}
 const shapeConfigurationCallback = (attributes, record) => {
   const placemarkAttributes = new WorldWind.PlacemarkAttributes(null);
   placemarkAttributes.imageScale = 0.05;
@@ -25,7 +33,7 @@ const shapeConfigurationCallback = (attributes, record) => {
 function Map() {
   const { dispatch, state } = useStore();
   const { lat, lon, range, plans } = state.planner;
-  const { threeD } = state.map;
+  const { layer, threeD } = state.map;
   const { searchWord } = state.app;
 
   const setLat = newLat => {
@@ -125,6 +133,22 @@ function Map() {
       plansLayer.addRenderable(placemark);
     });
     wwd.addLayer(plansLayer);
+
+    if (layer.tag !== "_") {
+      fetch(WMS)
+        .then(parseXML)
+        .then(xmlDom => {
+          const layerName = layer.tag;
+          const wms = new WorldWind.WmsCapabilities(xmlDom);
+          const wmsLayerCapabilities = wms.getNamedLayer(layerName);
+          const wmsConfig = WorldWind.WmsLayer.formLayerConfiguration(
+            wmsLayerCapabilities
+          );
+          wmsConfig.title = layer.label;
+          const wmsLayer = new WorldWind.WmsLayer(wmsConfig);
+          wwd.addLayer(wmsLayer);
+        });
+    }
 
     const geocoder = new WorldWind.NominatimGeocoder();
     const goToAnimator = new WorldWind.GoToAnimator(wwd);

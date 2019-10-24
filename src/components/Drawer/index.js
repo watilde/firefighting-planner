@@ -14,7 +14,7 @@ const useStyle = makeStyles(theme => ({
     justifyContent: "flex-start"
   },
   drawerPaper: {
-    width: 260
+    width: 300
   }
 }));
 
