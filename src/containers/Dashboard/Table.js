@@ -50,13 +50,17 @@ function Table() {
   const data = [].concat(plans, reports);
   return (
     <MaterialTable
-      title="All reports and plans"
+      title="All posted data"
       icons={tableIcons}
       options={{
         title: false,
         search: false,
         exportButton: true,
-        editable: true
+        editable: true,
+        minBodyHeight: `${window.innerHeight - 181}px`
+      }}
+      style={{
+        borderRadius: 0
       }}
       columns={[
         { title: "Type", field: "type" },
