@@ -55,20 +55,16 @@ function Map() {
     });
   };
 
-  let handleWheel;
-  let handleMove;
-  let canvas;
-  let wwd;
   WorldWind.configuration.baseUrl = `${process.env.PUBLIC_URL}`;
   WorldWind.BingMapsKey = process.env.REACT_APP_BING_MAPS_KEY;
   const roundGlobe = new WorldWind.Globe(new WorldWind.EarthElevationModel());
   const flatGlobe = new WorldWind.Globe2D();
   flatGlobe.projection = new WorldWind.ProjectionMercator();
   useEffect(() => {
-    canvas = canvas || document.getElementById("canvas");
+    const canvas = document.getElementById("canvas");
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight - 64;
-    wwd = wwd || new WorldWind.WorldWindow("canvas");
+    const wwd = new WorldWind.WorldWindow("canvas");
     if (threeD) {
       wwd.globe = roundGlobe;
     } else {
@@ -159,11 +155,8 @@ function Map() {
         const lat = parseFloat(tokens[0]);
         const lon = parseFloat(tokens[1]);
         goToAnimator.goTo(new WorldWind.Location(lat, lon), () => {
-          clearTimeout(handleMove);
-          handleMove = setTimeout(() => {
-            setLat(lat);
-            setLon(lon);
-          }, 100);
+          setLat(lat);
+          setLon(lon);
         });
       } else {
         geocoder.lookup(searchWord, (geocoder, result) => {
@@ -171,11 +164,8 @@ function Map() {
           const lat = parseFloat(result[0].lat);
           const lon = parseFloat(result[0].lon);
           goToAnimator.goTo(new WorldWind.Location(lat, lon), () => {
-            clearTimeout(handleMove);
-            handleMove = setTimeout(() => {
-              setLat(lat);
-              setLon(lon);
-            }, 100);
+            setLat(lat);
+            setLon(lon);
           });
         });
       }
@@ -190,23 +180,18 @@ function Map() {
         goToAnimator.goTo(
           new WorldWind.Location(position.latitude, position.longitude),
           () => {
-            clearTimeout(handleMove);
-            handleMove = setTimeout(() => {
-              setLat(position.latitude);
-              setLon(position.longitude);
-            }, 100);
+            setLat(position.latitude);
+            setLon(position.longitude);
           }
         );
       }
     };
     wwd.addEventListener("wheel", e => {
-      clearTimeout(handleWheel);
-      handleWheel = setTimeout(() => {
-        setRange(wwd.navigator.range);
-      }, 1000);
+      setRange(wwd.navigator.range);
     });
     new WorldWind.ClickRecognizer(wwd, handleClick);
     new WorldWind.TapRecognizer(wwd, handleClick);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [searchWord, plans, layer, threeD]);
 
   return <canvas id="canvas"></canvas>;
