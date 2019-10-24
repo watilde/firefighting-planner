@@ -1,5 +1,6 @@
 import React, { forwardRef } from "react";
 import MaterialTable from "material-table";
+import { Select, MenuItem, TextField } from "@material-ui/core";
 import {
   AddBox,
   ArrowUpward,
@@ -17,6 +18,7 @@ import {
   Search,
   ViewColumn
 } from "@material-ui/icons";
+import uuidv4 from "uuid/v4";
 import { useStore } from "../../store/configureStore";
 
 const tableIcons = {
@@ -44,21 +46,72 @@ const tableIcons = {
 };
 
 function Table() {
-  const { state } = useStore();
+  const { dispatch, state } = useStore();
   const { plans } = state.planner;
   const { reports } = state.reporter;
   const data = [].concat(plans, reports);
   const onRowAdd = newData => {
+    newData.uuid = uuidv4();
+    if (newData.category === "Plan") {
+      const newPlans = [].concat(plans, newData);
+      dispatch({
+        type: "@planner/setPlans",
+        plans: newPlans
+      });
+    } else {
+      const newReports = [].concat(reports, newData);
+      dispatch({
+        type: "@reporter/setReports",
+        reports: newReports
+      });
+    }
     return new Promise((resolve, reject) => {
       resolve();
     });
   };
-  const onRowUpdate = (newData, oldData) => {
+  const onRowUpdate = newData => {
+    if (newData.category === "Plan") {
+      const newPlans = [].concat(plans).map(plan => {
+        return plan.uuid === newData.uuid ? newData : plan;
+      });
+      dispatch({
+        type: "@planner/setPlans",
+        plans: newPlans
+      });
+    } else {
+      const newReports = [].concat(reports).map(report => {
+        return report.uuid === newData.uuid ? newData : report;
+      });
+      dispatch({
+        type: "@reporter/setReports",
+        reports: newReports
+      });
+    }
+    return new Promise((resolve, reject) => {
+      resolve();
+    });
     return new Promise((resolve, reject) => {
       resolve();
     });
   };
   const onRowDelete = oldData => {
+    if (oldData.category === "Plan") {
+      const newPlans = []
+        .concat(plans)
+        .filter(plan => plan.uuid !== oldData.uuid);
+      dispatch({
+        type: "@planner/setPlans",
+        plans: newPlans
+      });
+    } else {
+      const newReports = []
+        .concat(reports)
+        .filter(report => report.uuid !== oldData.uuid);
+      dispatch({
+        type: "@reporter/setReports",
+        reports: newReports
+      });
+    }
     return new Promise((resolve, reject) => {
       resolve();
     });
@@ -72,18 +125,75 @@ function Table() {
         search: false,
         exportButton: true,
         editable: true,
-        minBodyHeight: `${window.innerHeight - 181}px`
+        minBodyHeight: `${window.innerHeight - 180}px`
       }}
       style={{
         borderRadius: 0
       }}
       columns={[
-        { title: "Category", field: "category" },
+        {
+          title: "Category",
+          field: "category",
+          editComponent: props => (
+            <Select
+              value={props.value || ""}
+              onChange={e => props.onChange(e.target.value)}
+            >
+              <MenuItem value="Report">Report</MenuItem>
+              <MenuItem value="Plan">Plan</MenuItem>
+            </Select>
+          )
+        },
         { title: "Type", field: "type" },
         { title: "Description", field: "description" },
-        { title: "Latitude", field: "lat" },
-        { title: "Longitude", field: "lon" },
-        { title: "Date time", field: "dateTime" }
+        {
+          title: "Latitude",
+          field: "lat",
+          editComponent: props => (
+            <TextField
+              fullWidth
+              placeholder="Latitude"
+              type="number"
+              value={props.value || ""}
+              onChange={e => props.onChange(e.target.value)}
+              InputLabelProps={{
+                shrink: true
+              }}
+              inputProps={{ min: -90, max: 90 }}
+            />
+          )
+        },
+        {
+          title: "Longitude",
+          field: "lon",
+          editComponent: props => (
+            <TextField
+              fullWidth
+              placeholder="Longitude"
+              type="number"
+              value={props.value || ""}
+              onChange={e => props.onChange(e.target.value)}
+              InputLabelProps={{
+                shrink: true
+              }}
+              inputProps={{ min: -180, max: 180 }}
+            />
+          )
+        },
+        {
+          title: "Date time",
+          field: "dateTime",
+          editComponent: props => (
+            <TextField
+              type="datetime-local"
+              value={props.value || ""}
+              onChange={e => props.onChange(e.target.value)}
+              InputLabelProps={{
+                shrink: true
+              }}
+            />
+          )
+        }
       ]}
       editable={{
         onRowAdd,
