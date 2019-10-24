@@ -1,6 +1,7 @@
 export const appState = {
   time: "2018-08-01T10:10",
-  searchWord: ""
+  searchWord: "",
+  drawerOpen: true
 };
 
 export default (state = appState, action) => {
@@ -16,6 +17,13 @@ export default (state = appState, action) => {
       return {
         ...state,
         searchWord: action.searchWord
+      };
+    }
+
+    case "@app/toggleDrawer": {
+      return {
+        ...state,
+        drawerOpen: !state.drawerOpen
       };
     }
 

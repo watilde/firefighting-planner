@@ -3,17 +3,20 @@ import merge from "lodash.merge";
 import combineReducers from "./combineReducers";
 import { name, version } from "../../package.json";
 import app, { appState } from "./reducers/app";
+import map, { mapState } from "./reducers/map";
 import planner, { plannerState } from "./reducers/planner";
 import reporter, { reporterState } from "./reducers/reporter";
 
 const rootReducer = combineReducers({
   app,
+  map,
   planner,
   reporter
 });
 
 const initialState = {
   app: appState,
+  map: mapState,
   planner: plannerState,
   reporter: reporterState
 };
