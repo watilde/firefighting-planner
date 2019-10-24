@@ -25,6 +25,7 @@ const shapeConfigurationCallback = (attributes, record) => {
 function Map() {
   const { dispatch, state } = useStore();
   const { lat, lon, range, reports } = state.reporter;
+  const { threeD } = state.map;
   const { searchWord } = state.app;
 
   const setLat = newLat => {
@@ -48,6 +49,7 @@ function Map() {
 
   WorldWind.configuration.baseUrl = `${process.env.PUBLIC_URL}`;
   WorldWind.BingMapsKey = process.env.REACT_APP_BING_MAPS_KEY;
+  const roundGlobe = new WorldWind.Globe(new WorldWind.EarthElevationModel());
   const flatGlobe = new WorldWind.Globe2D();
   flatGlobe.projection = new WorldWind.ProjectionMercator();
   useEffect(() => {
@@ -55,7 +57,11 @@ function Map() {
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight - 64;
     const wwd = new WorldWind.WorldWindow("canvas");
-    wwd.globe = flatGlobe;
+    if (threeD) {
+      wwd.globe = roundGlobe;
+    } else {
+      wwd.globe = flatGlobe;
+    }
     wwd.navigator.lookAtLocation.latitude = lat;
     wwd.navigator.lookAtLocation.longitude = lon;
     wwd.navigator.range = range;
@@ -161,7 +167,7 @@ function Map() {
     new WorldWind.ClickRecognizer(wwd, handleClick);
     new WorldWind.TapRecognizer(wwd, handleClick);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [searchWord, reports]);
+  }, [searchWord, threeD, reports]);
 
   return <canvas id="canvas"></canvas>;
 }
