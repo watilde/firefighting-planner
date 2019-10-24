@@ -66,7 +66,7 @@ function Home() {
   };
 
   if (isEnter) {
-    return <Redirect to={redirectedPages[role]} />;
+    return <Redirect push to={redirectedPages[role]} />;
   }
 
   return (
