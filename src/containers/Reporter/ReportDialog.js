@@ -75,6 +75,7 @@ function ReportDialog() {
             onChange={handleReport}
           >
             <MenuItem value="Evacuation help">Evacuation help</MenuItem>
+            <MenuItem value="Wildfire report">Wildfire report</MenuItem>
             <MenuItem value="Others">Others</MenuItem>
           </Select>
         </FormControl>

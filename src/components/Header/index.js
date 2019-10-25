@@ -15,6 +15,11 @@ const useStyle = makeStyles(theme => ({
   },
   menuButton: {
     marginRight: theme.spacing(2)
+  },
+  logo: {
+    overflow: "hidden",
+    whiteSpace: "nowrap",
+    textOverflow: "ellipsis"
   }
 }));
 

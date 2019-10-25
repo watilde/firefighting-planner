@@ -22,8 +22,8 @@ const userStoris = {
 
 const redirectedPages = {
   citizen: "/report",
-  "senior-firefighter": "/plan",
-  "junior-firefighter": "/dashboard"
+  "firefight-team-manager": "/plan",
+  firefighter: "/dashboard"
 };
 
 const useStyles = makeStyles(theme => ({
@@ -103,12 +103,10 @@ function Home() {
                 fullWidth
               >
                 <MenuItem value={"citizen"}>Citizen</MenuItem>
-                <MenuItem value={"senior-firefighter"}>
-                  Senior firefighter
+                <MenuItem value={"firefight-team-manager"}>
+                  Firefight team manager
                 </MenuItem>
-                <MenuItem value={"junior-firefighter"}>
-                  Junior firefighter
-                </MenuItem>
+                <MenuItem value={"firefighter"}>Firefighter</MenuItem>
               </Select>
             </Grid>
           </Grid>
