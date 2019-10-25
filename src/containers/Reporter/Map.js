@@ -109,7 +109,7 @@ function Map() {
         true,
         null
       );
-      placemark.label = `${report.type}\n${report.time}`;
+      placemark.label = `${report.type}\n${report.dateTime}`;
       placemark.altitudeMode = WorldWind.RELATIVE_TO_GROUND;
       const placemarkAttributes = new WorldWind.PlacemarkAttributes(
         commonPlacemarkAttributes
