@@ -129,6 +129,7 @@ function Home() {
             </Grid>
           </Grid>
           <Button
+            disabled={!role}
             type="submit"
             fullWidth
             variant="contained"
