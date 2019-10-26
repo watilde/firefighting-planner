@@ -30,19 +30,19 @@ function Map() {
 
   const setLat = newLat => {
     dispatch({
-      type: "@planner/setLat",
+      type: "@reporter/setLat",
       lat: newLat
     });
   };
   const setLon = newLon => {
     dispatch({
-      type: "@planner/setLon",
+      type: "@reporter/setLon",
       lon: newLon
     });
   };
   const setRange = newRange => {
     dispatch({
-      type: "@planner/setRange",
+      type: "@reporter/setRange",
       range: newRange
     });
   };
@@ -96,7 +96,7 @@ function Map() {
     const reportsLayer = new WorldWind.RenderableLayer("Reports");
     const commonPlacemarkAttributes = new WorldWind.PlacemarkAttributes(null);
     commonPlacemarkAttributes.imageScale = 0.5;
-    commonPlacemarkAttributes.imageColor = WorldWind.Color.GREEN;
+    commonPlacemarkAttributes.imageColor = WorldWind.Color.ORANGE;
     commonPlacemarkAttributes.labelAttributes.offset = new WorldWind.Offset(
       WorldWind.OFFSET_FRACTION,
       0.5,

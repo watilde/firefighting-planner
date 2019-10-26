@@ -33,6 +33,7 @@ const shapeConfigurationCallback = (attributes, record) => {
 function Map() {
   const { dispatch, state } = useStore();
   const { lat, lon, range, plans } = state.planner;
+  const { reports } = state.reporter;
   const { compass, cordinates, viewControls, layer, threeD } = state.map;
   const { searchWord } = state.app;
 
@@ -132,6 +133,29 @@ function Map() {
       plansLayer.addRenderable(placemark);
     });
     wwd.addLayer(plansLayer);
+
+    const reportsLayer = new WorldWind.RenderableLayer("Reports");
+    reports.forEach(report => {
+      const placemark = new WorldWind.Placemark(
+        new WorldWind.Position(report.lat, report.lon, 1e2),
+        true,
+        null
+      );
+      placemark.label = `${report.type}\n${report.dateTime}`;
+      placemark.altitudeMode = WorldWind.RELATIVE_TO_GROUND;
+      const placemarkAttributes = new WorldWind.PlacemarkAttributes(
+        commonPlacemarkAttributes
+      );
+      placemarkAttributes.imageSource = `${WorldWind.configuration.baseUrl}images/white-dot.png`;
+      placemark.attributes = placemarkAttributes;
+      const highlightAttributes = new WorldWind.PlacemarkAttributes(
+        placemarkAttributes
+      );
+      highlightAttributes.imageScale = 1.2;
+      placemark.highlightAttributes = highlightAttributes;
+      reportsLayer.addRenderable(placemark);
+    });
+    wwd.addLayer(reportsLayer);
 
     if (layer.tag !== "_") {
       fetch(WMS)
