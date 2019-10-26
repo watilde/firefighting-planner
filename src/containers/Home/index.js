@@ -14,9 +14,9 @@ import { Redirect } from "react-router-dom";
 const userStoris = {
   citizen:
     "know how far wildfire is from my town and ask for help when it’s needed.",
-  "senior-firefighter":
+  "firefight-team-manager":
     "manage scattered wildfire information, related data and firefighting plans in a single place.",
-  "junior-firefighter":
+  firefighter:
     "learn the best practice of fire fighting planning from the past."
 };
 

@@ -112,6 +112,15 @@ function Map() {
       WorldWind.OFFSET_FRACTION,
       1.0
     );
+    const commonPlacemarkAttributes2 = new WorldWind.PlacemarkAttributes(null);
+    commonPlacemarkAttributes2.imageScale = 0.5;
+    commonPlacemarkAttributes2.imageColor = WorldWind.Color.YELLOW;
+    commonPlacemarkAttributes2.labelAttributes.offset = new WorldWind.Offset(
+      WorldWind.OFFSET_FRACTION,
+      0.5,
+      WorldWind.OFFSET_FRACTION,
+      1.0
+    );
     plans.forEach(plan => {
       const placemark = new WorldWind.Placemark(
         new WorldWind.Position(plan.lat, plan.lon, 1e2),
@@ -144,7 +153,7 @@ function Map() {
       placemark.label = `${report.type}\n${report.dateTime}`;
       placemark.altitudeMode = WorldWind.RELATIVE_TO_GROUND;
       const placemarkAttributes = new WorldWind.PlacemarkAttributes(
-        commonPlacemarkAttributes
+        commonPlacemarkAttributes2
       );
       placemarkAttributes.imageSource = `${WorldWind.configuration.baseUrl}images/white-dot.png`;
       placemark.attributes = placemarkAttributes;

@@ -96,7 +96,7 @@ function Map() {
     const reportsLayer = new WorldWind.RenderableLayer("Reports");
     const commonPlacemarkAttributes = new WorldWind.PlacemarkAttributes(null);
     commonPlacemarkAttributes.imageScale = 0.5;
-    commonPlacemarkAttributes.imageColor = WorldWind.Color.ORANGE;
+    commonPlacemarkAttributes.imageColor = WorldWind.Color.YELLOW;
     commonPlacemarkAttributes.labelAttributes.offset = new WorldWind.Offset(
       WorldWind.OFFSET_FRACTION,
       0.5,
