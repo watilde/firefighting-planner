@@ -3,6 +3,13 @@
 POC of Collaborative planning tool for fire fighting against wildfire, created for [NASA International Space Apps Challenge
 2019](https://2019.spaceappschallenge.org/).
 
+## Links
+
+- Prototype: https://firefighting-planner.dev
+- Source: https://github.com/watilde/firefighting-planner
+- Open NEX: https://opennex.org/project/projectDetail/275
+- Deck: https://speakerdeck.com/watilde/firefighting-planner
+
 ## Getting started
 
 ### Install middleware
