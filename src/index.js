@@ -1,6 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import CssBaseline from "@material-ui/core/CssBaseline";
+import { BrowserRouter } from "react-router-dom";
 import { ThemeProvider } from "@material-ui/core/styles";
 import "./index.css";
 import theme from "./theme";
@@ -12,7 +13,9 @@ ReactDOM.render(
   <StoreProvider>
     <CssBaseline />
     <ThemeProvider theme={theme}>
-      <App />
+      <BrowserRouter>
+        <App />
+      </BrowserRouter>
     </ThemeProvider>
   </StoreProvider>,
   document.getElementById("root")
