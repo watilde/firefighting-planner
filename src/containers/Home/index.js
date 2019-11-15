@@ -12,12 +12,10 @@ import { makeStyles } from "@material-ui/core/styles";
 import { Redirect } from "react-router-dom";
 
 const userStoris = {
-  citizen:
-    "know how far wildfire is from my town and ask for help when it’s needed.",
+  citizen: "report wildfires and ask for help.",
   "firefight-team-manager":
-    "manage scattered wildfire information, related data and firefighting plans in a single place.",
-  firefighter:
-    "learn the best practice of fire fighting planning from the past."
+    "make and share my fire mitigation plan referring to satellite data and citizen reports.",
+  firefighter: "learn from past fire suppression activities."
 };
 
 const redirectedPages = {
