@@ -10,7 +10,7 @@ function parseXML(response) {
     return parser.parseFromString(stringContainingXMLSource, "text/xml");
   });
 }
-const shapeConfigurationCallback = (attributes, record) => {
+const shapeConfigurationCallback = attributes => {
   const placemarkAttributes = new WorldWind.PlacemarkAttributes(null);
   placemarkAttributes.imageScale = 0.05;
   placemarkAttributes.imageColor = WorldWind.Color.RED;
@@ -222,12 +222,11 @@ function Map() {
         );
       }
     };
-    wwd.addEventListener("wheel", e => {
+    wwd.addEventListener("wheel", () => {
       setRange(wwd.navigator.range);
     });
     new WorldWind.ClickRecognizer(wwd, handleClick);
     new WorldWind.TapRecognizer(wwd, handleClick);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [searchWord, plans, layer, threeD, compass, cordinates, viewControls]);
 
   return <canvas id="canvas"></canvas>;

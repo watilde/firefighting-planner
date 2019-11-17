@@ -59,7 +59,7 @@ function Home() {
   const handleChange = e => {
     setRole(e.target.value);
   };
-  const handleEnter = e => {
+  const handleEnter = () => {
     setIsEnter(true);
   };
 

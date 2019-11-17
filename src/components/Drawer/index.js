@@ -8,7 +8,7 @@ import TargetDateTime from "./TargetDateTime";
 import MapOptions from "./MapOptions";
 import LayerOptions from "./LayerOptions";
 
-const useStyle = makeStyles(theme => ({
+const useStyle = makeStyles(() => ({
   drawerHeader: {
     display: "flex",
     alignItems: "center",
@@ -24,7 +24,7 @@ function Drawer() {
   const { drawerOpen } = state.app;
   const classes = useStyle();
 
-  const handleDrawerClose = _ => {
+  const handleDrawerClose = () => {
     dispatch({
       type: "@app/toggleDrawer"
     });

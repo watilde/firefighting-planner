@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import WorldWind from "@nasaworldwind/worldwind";
 import { useStore } from "../../store/configureStore";
 
-const shapeConfigurationCallback = (attributes, record) => {
+const shapeConfigurationCallback = attributes => {
   const placemarkAttributes = new WorldWind.PlacemarkAttributes(null);
   placemarkAttributes.imageScale = 0.05;
   placemarkAttributes.imageColor = WorldWind.Color.RED;
@@ -164,12 +164,11 @@ function Map() {
         );
       }
     };
-    wwd.addEventListener("wheel", e => {
+    wwd.addEventListener("wheel", () => {
       setRange(wwd.navigator.range);
     });
     new WorldWind.ClickRecognizer(wwd, handleClick);
     new WorldWind.TapRecognizer(wwd, handleClick);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [searchWord, threeD, reports, compass, cordinates, viewControls]);
 
   return <canvas id="canvas"></canvas>;

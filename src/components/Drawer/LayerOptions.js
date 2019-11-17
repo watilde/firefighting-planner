@@ -21,7 +21,7 @@ const LAYERS = [
   { label: "Water Vapor", tag: "MYDAL2_D_SKY_WV" }
 ];
 
-const useStyle = makeStyles(theme => ({
+const useStyle = makeStyles(() => ({
   list: {
     padding: 0
   },

@@ -21,7 +21,7 @@ const useStyle = makeStyles(theme => ({
 function Header() {
   const { dispatch } = useStore();
   const classes = useStyle();
-  const handleMenu = _ => {
+  const handleMenu = () => {
     dispatch({
       type: "@app/toggleDrawer"
     });

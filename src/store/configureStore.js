@@ -1,4 +1,5 @@
 import React, { createContext, useReducer, useContext, useEffect } from "react";
+import PropTypes from "prop-types";
 import merge from "lodash.merge";
 import combineReducers from "./combineReducers";
 import { name, version } from "../../package.json";
@@ -24,7 +25,7 @@ const initialState = {
 const persistedState = JSON.parse(localStorage.getItem(`${name}@${version}`));
 const StoreContext = createContext(merge(initialState, persistedState));
 
-export const useStore = store => {
+export const useStore = () => {
   const { state, dispatch } = useContext(StoreContext);
   return { state, dispatch };
 };
@@ -39,4 +40,8 @@ export const StoreProvider = ({ children }) => {
       {children}
     </StoreContext.Provider>
   );
+};
+
+StoreProvider.propTypes = {
+  children: PropTypes.element.required
 };

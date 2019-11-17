@@ -1,4 +1,5 @@
 import React, { forwardRef } from "react";
+import PropTypes from "prop-types";
 import MaterialTable from "material-table";
 import { Select, MenuItem, TextField } from "@material-ui/core";
 import {
@@ -22,27 +23,57 @@ import uuidv4 from "uuid/v4";
 import { useStore } from "../../store/configureStore";
 
 const tableIcons = {
-  Add: forwardRef((props, ref) => <AddBox {...props} ref={ref} />),
-  Check: forwardRef((props, ref) => <Check {...props} ref={ref} />),
-  Clear: forwardRef((props, ref) => <Clear {...props} ref={ref} />),
-  Delete: forwardRef((props, ref) => <DeleteOutline {...props} ref={ref} />),
-  DetailPanel: forwardRef((props, ref) => (
-    <ChevronRight {...props} ref={ref} />
-  )),
-  Edit: forwardRef((props, ref) => <Edit {...props} ref={ref} />),
-  Export: forwardRef((props, ref) => <SaveAlt {...props} ref={ref} />),
-  Filter: forwardRef((props, ref) => <FilterList {...props} ref={ref} />),
-  FirstPage: forwardRef((props, ref) => <FirstPage {...props} ref={ref} />),
-  LastPage: forwardRef((props, ref) => <LastPage {...props} ref={ref} />),
-  NextPage: forwardRef((props, ref) => <ChevronRight {...props} ref={ref} />),
-  PreviousPage: forwardRef((props, ref) => (
-    <ChevronLeft {...props} ref={ref} />
-  )),
-  ResetSearch: forwardRef((props, ref) => <Clear {...props} ref={ref} />),
-  Search: forwardRef((props, ref) => <Search {...props} ref={ref} />),
-  SortArrow: forwardRef((props, ref) => <ArrowUpward {...props} ref={ref} />),
-  ThirdStateCheck: forwardRef((props, ref) => <Remove {...props} ref={ref} />),
-  ViewColumn: forwardRef((props, ref) => <ViewColumn {...props} ref={ref} />)
+  Add: forwardRef(function AddIcon(props, ref) {
+    return <AddBox {...props} ref={ref} />;
+  }),
+  Check: forwardRef(function CheckIcon(props, ref) {
+    return <Check {...props} ref={ref} />;
+  }),
+  Clear: forwardRef(function ClearIcon(props, ref) {
+    return <Clear {...props} ref={ref} />;
+  }),
+  Delete: forwardRef(function DeleteIcon(props, ref) {
+    return <DeleteOutline {...props} ref={ref} />;
+  }),
+  DetailPanel: forwardRef(function DetailPanelIcon(props, ref) {
+    return <ChevronRight {...props} ref={ref} />;
+  }),
+  Edit: forwardRef(function EditIcon(props, ref) {
+    return <Edit {...props} ref={ref} />;
+  }),
+  Export: forwardRef(function ExportIcon(props, ref) {
+    return <SaveAlt {...props} ref={ref} />;
+  }),
+  Filter: forwardRef(function FilterIcon(props, ref) {
+    return <FilterList {...props} ref={ref} />;
+  }),
+  FirstPage: forwardRef(function FirstPageIcon(props, ref) {
+    return <FirstPage {...props} ref={ref} />;
+  }),
+  LastPage: forwardRef(function LastPageIcon(props, ref) {
+    return <LastPage {...props} ref={ref} />;
+  }),
+  NextPage: forwardRef(function NextPageIcon(props, ref) {
+    return <ChevronRight {...props} ref={ref} />;
+  }),
+  PreviousPage: forwardRef(function PreviousPageIcon(props, ref) {
+    return <ChevronLeft {...props} ref={ref} />;
+  }),
+  ResetSearch: forwardRef(function ResetSearchIcon(props, ref) {
+    return <Clear {...props} ref={ref} />;
+  }),
+  Search: forwardRef(function SearchIcon(props, ref) {
+    return <Search {...props} ref={ref} />;
+  }),
+  SortArrow: forwardRef(function SortArrowIcon(props, ref) {
+    return <ArrowUpward {...props} ref={ref} />;
+  }),
+  ThirdStateCheck: forwardRef(function ThirdStateCheckIcon(props, ref) {
+    return <Remove {...props} ref={ref} />;
+  }),
+  ViewColumn: forwardRef(function ViewColumnIcon(props, ref) {
+    return <ViewColumn {...props} ref={ref} />;
+  })
 };
 
 function Table() {
@@ -65,7 +96,7 @@ function Table() {
         reports: newReports
       });
     }
-    return new Promise((resolve, reject) => {
+    return new Promise(resolve => {
       resolve();
     });
   };
@@ -87,7 +118,7 @@ function Table() {
         reports: newReports
       });
     }
-    return new Promise((resolve, reject) => {
+    return new Promise(resolve => {
       resolve();
     });
   };
@@ -109,7 +140,7 @@ function Table() {
         reports: newReports
       });
     }
-    return new Promise((resolve, reject) => {
+    return new Promise(resolve => {
       resolve();
     });
   };
@@ -131,65 +162,73 @@ function Table() {
         {
           title: "Category",
           field: "category",
-          editComponent: props => (
-            <Select
-              value={props.value || ""}
-              onChange={e => props.onChange(e.target.value)}
-            >
-              <MenuItem value="Report">Report</MenuItem>
-              <MenuItem value="Plan">Plan</MenuItem>
-            </Select>
-          )
+          editComponent: function SelectCategory(props) {
+            return (
+              <Select
+                value={props.value || ""}
+                onChange={e => props.onChange(e.target.value)}
+              >
+                <MenuItem value="Report">Report</MenuItem>
+                <MenuItem value="Plan">Plan</MenuItem>
+              </Select>
+            );
+          }
         },
         { title: "Type", field: "type" },
         { title: "Description", field: "description" },
         {
           title: "Latitude",
           field: "lat",
-          editComponent: props => (
-            <TextField
-              fullWidth
-              placeholder="Latitude"
-              type="number"
-              value={props.value || ""}
-              onChange={e => props.onChange(e.target.value)}
-              InputLabelProps={{
-                shrink: true
-              }}
-              inputProps={{ min: -90, max: 90 }}
-            />
-          )
+          editComponent: function EditLatitude(props) {
+            return (
+              <TextField
+                fullWidth
+                placeholder="Latitude"
+                type="number"
+                value={props.value || ""}
+                onChange={e => props.onChange(e.target.value)}
+                InputLabelProps={{
+                  shrink: true
+                }}
+                inputProps={{ min: -90, max: 90 }}
+              />
+            );
+          }
         },
         {
           title: "Longitude",
           field: "lon",
-          editComponent: props => (
-            <TextField
-              fullWidth
-              placeholder="Longitude"
-              type="number"
-              value={props.value || ""}
-              onChange={e => props.onChange(e.target.value)}
-              InputLabelProps={{
-                shrink: true
-              }}
-              inputProps={{ min: -180, max: 180 }}
-            />
-          )
+          editComponent: function EditLongitude(props) {
+            return (
+              <TextField
+                fullWidth
+                placeholder="Longitude"
+                type="number"
+                value={props.value || ""}
+                onChange={e => props.onChange(e.target.value)}
+                InputLabelProps={{
+                  shrink: true
+                }}
+                inputProps={{ min: -180, max: 180 }}
+              />
+            );
+          }
         },
         {
           title: "Date time",
           field: "dateTime",
-          editComponent: props => (
-            <TextField
-              type="datetime-local"
-              value={props.value || ""}
-              onChange={e => props.onChange(e.target.value)}
-              InputLabelProps={{
-                shrink: true
-              }}
-            />
-          )
+          editComponent: function EditDateTime(props) {
+            return (
+              <TextField
+                type="datetime-local"
+                value={props.value || ""}
+                onChange={e => props.onChange(e.target.value)}
+                InputLabelProps={{
+                  shrink: true
+                }}
+              />
+            );
+          }
         }
       ]}
       editable={{
@@ -201,4 +240,9 @@ function Table() {
     />
   );
 }
+
+Table.propTypes = {
+  value: PropTypes.string.required,
+  onChange: PropTypes.function.required
+};
 export default Table;

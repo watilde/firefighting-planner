@@ -20,7 +20,7 @@ function PlanButton() {
   const { dateTime } = state.app;
   const classes = useStyle();
 
-  const handleFabClick = _ => {
+  const handleFabClick = () => {
     dispatch({
       type: "@planner/setDialogOpen",
       dialogOpen: true

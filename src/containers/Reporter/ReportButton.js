@@ -20,7 +20,7 @@ function ReportButton() {
   const { dateTime } = state.app;
   const classes = useStyle();
 
-  const handleFabClick = _ => {
+  const handleFabClick = () => {
     dispatch({
       type: "@reporter/setDialogOpen",
       dialogOpen: true

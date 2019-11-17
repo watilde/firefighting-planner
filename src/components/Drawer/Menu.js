@@ -18,7 +18,7 @@ const MENU = [
   }
 ];
 
-const useStyle = makeStyles(theme => ({
+const useStyle = makeStyles(() => ({
   list: {
     padding: 0
   },

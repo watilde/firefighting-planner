@@ -15,7 +15,7 @@ import {
 import { makeStyles } from "@material-ui/core/styles";
 import { useStore } from "../../store/configureStore";
 
-const useStyle = makeStyles(theme => ({
+const useStyle = makeStyles(() => ({
   formControl: {
     minWidth: 120
   }
@@ -42,7 +42,7 @@ function PlanDialog() {
     });
   };
 
-  const handleSave = _ => {
+  const handleSave = () => {
     const newPlans = [].concat(plans, plan);
     dispatch({
       type: "@planner/setPlans",
