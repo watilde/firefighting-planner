@@ -6,7 +6,6 @@
     "browser": true
   },
   "parser": "babel-eslint",
-  "plugins": ["react", "prettier"],
   "parserOptions": {
     "version": 2020,
     "sourceType": "module",
@@ -20,9 +19,10 @@
     }
   },
   "extends": [
+    "prettier/react",
     "eslint:recommended",
     "plugin:react/recommended",
     "plugin:prettier/recommended",
-    "prettier/react"
+    "plugin:cypress/recommended"
   ]
 }

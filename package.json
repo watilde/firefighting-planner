@@ -11,6 +11,7 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
+    "test:e2e": "cypress run",
     "eject": "react-scripts eject",
     "lint": "eslint '{src,test,scripts,e2e}/**/*.js' --max-warnings=0",
     "test:coverage": "react-scripts test --coverage --watchAll=false",
@@ -33,14 +34,16 @@
     "@testing-library/jest-dom": "^4.2.3",
     "@testing-library/react": "^9.3.1",
     "commitizen": "^4.0.3",
+    "cypress": "^3.6.1",
     "cz-conventional-changelog": "^3.0.2",
     "eslint": "^6.6.0",
     "eslint-config-prettier": "^6.6.0",
+    "eslint-plugin-cypress": "^2.7.0",
     "eslint-plugin-prettier": "^3.1.1",
     "eslint-plugin-react": "^7.16.0",
     "husky": "^3.0.9",
     "lint-staged": "^9.4.3",
-    "prettier": "^1.18.2"
+    "prettier": "^1.19.1"
   },
   "license": "MIT",
   "browserslist": {
@@ -54,28 +57,6 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  },
-  "lint-staged": {
-    "*.js": [
-      "eslint '{src,test,scripts,e2e}/**/*.js' --fix",
-      "git add"
-    ]
-  },
-  "jest": {
-    "collectCoverageFrom": [
-      "src/**/*.{js,jsx}",
-      "!src/index.js",
-      "!src/serviceWorker.js",
-      "!src/theme.js",
-      "!src/setupTests.js"
-    ]
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged",
-      "prepare-commit-msg": "exec < /dev/tty && git cz --hook || true",
-      "pre-push": "npm run lint && npm run test:coverage"
-    }
   },
   "config": {
     "commitizen": {
