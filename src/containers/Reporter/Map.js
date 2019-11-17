@@ -169,6 +169,7 @@ function Map() {
     });
     new WorldWind.ClickRecognizer(wwd, handleClick);
     new WorldWind.TapRecognizer(wwd, handleClick);
+    // eslint-disable-next-line
   }, [searchWord, threeD, reports, compass, cordinates, viewControls]);
 
   return <canvas id="canvas"></canvas>;
