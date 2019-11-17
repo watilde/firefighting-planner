@@ -242,7 +242,7 @@ function Table() {
 }
 
 Table.propTypes = {
-  value: PropTypes.string.required,
-  onChange: PropTypes.function.required
+  value: PropTypes.string.isRequired,
+  onChange: PropTypes.function.isRequired
 };
 export default Table;

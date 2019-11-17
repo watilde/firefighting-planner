@@ -43,5 +43,5 @@ export const StoreProvider = ({ children }) => {
 };
 
 StoreProvider.propTypes = {
-  children: PropTypes.element.required
+  children: PropTypes.element.isRequired
 };
