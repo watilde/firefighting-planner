@@ -11,12 +11,14 @@ import * as serviceWorker from "./serviceWorker";
 
 ReactDOM.render(
   <StoreProvider>
-    <CssBaseline />
-    <ThemeProvider theme={theme}>
-      <BrowserRouter>
-        <App />
-      </BrowserRouter>
-    </ThemeProvider>
+    <>
+      <CssBaseline />
+      <ThemeProvider theme={theme}>
+        <BrowserRouter>
+          <App />
+        </BrowserRouter>
+      </ThemeProvider>
+    </>
   </StoreProvider>,
   document.getElementById("root")
 );
