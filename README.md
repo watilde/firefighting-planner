@@ -9,6 +9,7 @@ POC of Collaborative planning tool for fire fighting against wildfire, created f
 - Source: https://github.com/watilde/firefighting-planner
 - Open NEX: https://opennex.org/project/projectDetail/275
 - Deck: https://speakerdeck.com/watilde/firefighting-planner
+- Project page: https://2019.spaceappschallenge.org/challenges/living-our-world/spot-fire-v20/teams/firefighting-planner/project
 
 ## Getting started
 
