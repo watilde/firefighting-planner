@@ -56,9 +56,18 @@
     ]
   },
   "lint-staged": {
-    "*.{js,jsx}": [
+    "*.js": [
       "eslint '{src,test,scripts,e2e}/**/*.js' --fix",
       "git add"
+    ]
+  },
+  "jest": {
+    "collectCoverageFrom": [
+      "src/**/*.{js,jsx}",
+      "!src/index.js",
+      "!src/serviceWorker.js",
+      "!src/theme.js",
+      "!src/setupTests.js"
     ]
   },
   "husky": {
