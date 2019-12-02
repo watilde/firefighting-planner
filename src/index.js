@@ -8,6 +8,10 @@ import theme from "./theme";
 import App from "./App";
 import { StoreProvider } from "./store/configureStore";
 import * as serviceWorker from "./serviceWorker";
+import ReactGA from "react-ga";
+
+ReactGA.initialize("UA-35821550-9");
+ReactGA.pageview(window.location.pathname + window.location.search);
 
 ReactDOM.render(
   <StoreProvider>
